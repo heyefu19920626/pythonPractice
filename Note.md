@@ -40,3 +40,17 @@
 %% | %
 - format()方法也可以格式化字符串
 > 'Hello, {0}, 成绩提升了{1}'.format('小明', 17)
+
+### list列表
+- 访问
+```
+    classmates = ['1', '2', 'list',[2, 3, 4, 'list']]
+    print(classmates[-1][-1])
+```
+- 列表操作:append(), pop(), insert()
+```
+    classmates.append(['append', '3']);
+    classmates.append(5)
+    classmates.pop()
+    classmates.pop(1)
+```
