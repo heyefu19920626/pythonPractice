@@ -23,7 +23,7 @@
 - str可以用encode()方法编码为指定的bytes
 - bytes转为str可以用decode()
 - 声明解释器和编码方式并保存为对应编码一般能够保证程序中写死的输出不乱码
-```
+```python
 #!/usr/bin/python3
 # -*- encoding: utf-8 -*-
 ```
@@ -44,14 +44,56 @@
 
 ### list列表
 - 访问
-```
+```python
     classmates = ['1', '2', 'list',[2, 3, 4, 'list']]
     print(classmates[-1][-1])
 ```
 - 列表操作:append(), pop(), insert()
-```
+```python
     classmates.append(['append', '3']);
     classmates.append(5)
     classmates.pop()
     classmates.pop(1)
 ```
+
+### tuple元组
+- tuple用()来定义，tuple定义后不可变
+- 定义一个元素，避免与小括号冲突
+> t = (1,)
+- tuple的指向永远不变
+```python
+    t = (1, 2, [3, 4])
+    t[-1][-1] = 5
+```
+
+### 条件判断
+- if elif else
+- 非空数值，非空字符串，非空list等都判断为true
+
+### 循环
+- for in
+- while
+- break, continue
+
+### dict字典
+- dict的key值必须是不可变对象，如数值，字符串
+- 字典的访问
+> dict['key']  
+> dict.get(key, -1) 如果key存在，返回对应的value，否则返回指定的值
+- 多次向同一个key放入value会将前面的值冲掉
+- 判断字典key存在
+```python
+    d = {'a': 1, 'b': 2}
+    'a' in d
+```
+- 删除pop()
+- dict是无序的
+
+### set
+- 初始化，传入一个列表
+> s = set([1, 2, 3, 3])
+- 重复元素会自动被过滤
+- add(key), remove(key)
+- set可以做交集，并集
+> s1 & s2
+> s1 | s2
