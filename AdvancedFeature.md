@@ -47,7 +47,7 @@ a = t[0]
 b = t[1]
 
 # 函数式生成器
-''' generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行 '''
+""" generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行 """
 def fib(max):
     n, a, b = 0, 0 , 1
     while n < max:
@@ -59,7 +59,7 @@ def fib(max):
 for f in fib(10):
     print(f)
 
-''' 想拿到return返回值，必须捕获StopIteration错误，返回值包含在StopIteration的value中 '''
+""" 想拿到return返回值，必须捕获StopIteration错误，返回值包含在StopIteration的value中 """
 g = fib(10)
 while True:
     try:
