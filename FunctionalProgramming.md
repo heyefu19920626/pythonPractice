@@ -96,3 +96,42 @@ def str2float(s):
 <div id="filter"></div>
 
 - filter():接收一个函数和一个序列,filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素
+    - filter()使用了惰性计算，所以只有在取filter()结果的时候，才会真正筛选并每次返回下一个筛出的元素
+```python
+def old_iter():
+    """ 构造一个从3开始的奇数序列 """
+    n = 1
+    while True:
+        n = n + 2
+        yield n
+
+
+def not_prime(n):
+    """ 筛选序列 """
+    return lambda x: x % n > 0
+
+
+def primes():
+    """ 生成器， 返回素数 """
+    yield 2
+    it = old_iter()
+    while True:
+        n = next(it)
+        yield n
+        it = filter(not_prime(n), it)
+
+
+for n in primes():
+    if n < 1000:
+        print(n)
+    else:
+        break
+
+
+def is_palindrome(n):
+    return int(str(n)[::-1]) == n # 切片操作的最后一个参数可以看做步长或者偏移量
+
+
+# 筛选回数
+print(list(filter(is_palindrome, range(1000))))
+```
