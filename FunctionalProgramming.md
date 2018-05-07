@@ -1,8 +1,9 @@
 # 函数式编程
-## 高阶函数
+
 - [MapReduce](#map_reduce)
 - [Filter](#filter)
 - [Sorted](#sorted)
+- [Rutrun-funcion](#return-function)
 ```
   函数式编程就是一种抽象程度很高的编程范式，
   纯粹的函数式编程语言编写的函数没有变量，
@@ -158,4 +159,64 @@ def by_score(t):
 print(L)
 print(sorted(L, key=by_name))
 print(sorted(L, key=by_score))
+```
+
+<div id="return-function"></div>
+- 返回函数
+    - 内部函数sum可以引用外部函数lazy_sum的参数和局部变量
+    - 每次调用都会返回一个新的函数，即使传入相同的参数
+    - 返回的函数并没有立刻执行，而是直到调用了f()才执行
+```python
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax += n
+        return ax
+    return sum
+
+
+f = lazy_sum(1, 2, 3, 4, 5)
+print(f)
+print(f())
+```
+- 闭包
+    - <font color="red">返回函数不要引用任何循环变量，或者后续会发生变化的变量</font>
+    - 内部函数只有读闭包的权限，没有写闭包的权限。可以用nonlocal来解决
+    - nonlocal global
+```python
+def count():
+    fs = []
+    for i in range(1, 4):
+        def f():
+            return i * i
+        fs.append(f)
+    return fs
+
+
+f1, f2, f3 = count()
+print(f1(), f2(), f3()) # 9, 9, 9
+
+def count():
+    def f(j):
+        def g():
+            return j*j
+        return g
+    fs = []
+    for i in range(1, 4):
+        fs.append(f(i)) # f(i)立刻被执行，因此i的当前值被传入f()
+    return fs
+
+def createCounter():
+    i = 0
+
+    def count():
+        nonlocal i
+        i += 1
+        return i
+    return count
+
+
+countA = createCounter()
+print(countA(), countA())
 ```

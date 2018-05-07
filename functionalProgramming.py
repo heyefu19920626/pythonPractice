@@ -81,11 +81,11 @@ def primes():
         it = filter(not_prime(n), it)
 
 
-for n in primes():
-    if n < 1000:
-        print(n)
-    else:
-        break
+# for n in primes():
+#     if n < 1000:
+#         print(n)
+#     else:
+#         break
 
 
 def is_palindrome(n):
@@ -99,6 +99,7 @@ print(list(filter(is_palindrome, range(1000))))
 L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 
 
+# sorted
 def by_name(t):
     return t[0]
 
@@ -110,3 +111,47 @@ def by_score(t):
 print(L)
 print(sorted(L, key=by_name))
 print(sorted(L, key=by_score))
+
+
+# return function
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax += n
+        return ax
+    return sum
+
+
+f = lazy_sum(1, 2, 3, 4, 5)
+print(f)
+print(f())
+
+
+def count():
+    fs = []
+    for i in range(1, 4):
+        def f():
+            return i * i
+        fs.append(f)
+    return fs
+
+
+f1, f2, f3 = count()
+print(f1(), f2(), f3())
+
+
+def createCounter():
+    i = 0
+
+    def count():
+        nonlocal i
+        i += 1
+        return i
+    return count
+
+
+countA = createCounter()
+print(countA(), countA())
+countB = createCounter()
+print(countB(), countB())
