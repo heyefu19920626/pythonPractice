@@ -4,6 +4,8 @@
 - [Filter](#filter)
 - [Sorted](#sorted)
 - [Rutrun-funcion](#return-function)
+- [Anonymity-funcion](#anonymity-function)
+- [Decorator](#decorator)
 ```
   函数式编程就是一种抽象程度很高的编程范式，
   纯粹的函数式编程语言编写的函数没有变量，
@@ -219,4 +221,78 @@ def createCounter():
 
 countA = createCounter()
 print(countA(), countA())
+```
+
+<div id="anonymity-function"></div>
+
+- 匿名函数
+    + lambda
+```python
+L = list(filter(lambda x: x % 2 == 0, range(0, 20)))
+```
+
+<div id="decorator"></div>
+
+- 装饰器
+    - 在代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）
+```python
+def log(func):
+    def wapper(*args, **kw):
+        print('call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wapper
+
+
+@log
+def now():
+    print('2018-05-07')
+
+
+now1 = log(now)  # log(log(now)) -> log(wapper)
+now1()
+
+now()
+```
+    - 带参数的装饰器
+```python
+def log(text):
+    def decorator(func):
+        @functools.wraps(func)
+        def wapper(*args, **kw):
+            print('call %s %s():' % (text, func.__name__))
+            return func(*args, **kw)
+        return wapper
+    return decorator
+
+
+@log('execute')
+def now():
+    print('2018-05-07')
+
+
+now1 = log('execute 1')(now)  # log(log(now)) -> log(wapper)
+now1()
+
+print(now.__name__)
+now()
+
+# 打印函数执行时间
+def metric(fn):
+    @functools.wraps(fn)
+    def wapper(*args, **kw):
+        start = time.time()
+        result = fn(*args, **kw)
+        end = time.time()
+        print('%s executed in %s ms' % (fn.__name__, end - start))
+        return result
+
+    return wapper
+
+
+@metric
+def fast(x, y):
+    time.sleep(0.002)
+    return x + y
+
+f = fast(11, 22)
 ```
