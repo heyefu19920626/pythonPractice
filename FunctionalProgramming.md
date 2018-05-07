@@ -1,6 +1,8 @@
 # 函数式编程
+## 高阶函数
 - [MapReduce](#map_reduce)
 - [Filter](#filter)
+- [Sorted](#sorted)
 ```
   函数式编程就是一种抽象程度很高的编程范式，
   纯粹的函数式编程语言编写的函数没有变量，
@@ -134,4 +136,26 @@ def is_palindrome(n):
 
 # 筛选回数
 print(list(filter(is_palindrome, range(1000))))
+```
+
+<div id="sorted"></div>
+
+- sorted是一个高阶函数，它还可以接收一个key函数来实现自定义的排序.
+    - key指定的函数将作用于list的每一个元素上，并根据key函数返回的结果进行排序
+    - 用sorted()排序的关键在于实现一个映射函数
+```python
+L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
+
+
+def by_name(t):
+    return t[0]
+
+
+def by_score(t):
+    return t[1]
+
+
+print(L)
+print(sorted(L, key=by_name))
+print(sorted(L, key=by_score))
 ```
