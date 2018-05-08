@@ -6,6 +6,7 @@
 - [Rutrun-funcion](#return-function)
 - [Anonymity-funcion](#anonymity-function)
 - [Decorator](#decorator)
+- [Partial-function](#partial-function)
 ```
   函数式编程就是一种抽象程度很高的编程范式，
   纯粹的函数式编程语言编写的函数没有变量，
@@ -295,4 +296,21 @@ def fast(x, y):
     return x + y
 
 f = fast(11, 22)
+```
+
+<div id="partial-function"></div>
+
+- 偏函数
+```python
+def int2(x, base=2):
+    return int(x, base)
+
+
+print(int2('100001'))
+
+int3 = functools.partial(int, base=2)
+print(int3('11111'))
+
+max2 = functools.partial(max, 10)
+print(max2(2, 6, 7))
 ```

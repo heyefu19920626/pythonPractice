@@ -237,3 +237,17 @@ def testLog2():
 
 
 testLog2()
+
+
+# partial-function
+def int2(x, base=2):
+    return int(x, base)
+
+
+print(int2('100001'))
+
+int3 = functools.partial(int, base=2)
+print(int3('11111'))
+
+max2 = functools.partial(max, 10)
+print(max2(2, 6, 7))
