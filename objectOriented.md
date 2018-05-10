@@ -3,6 +3,7 @@
 - [Class-Instance](#class-instance)
 - [Access-Restriction](#access-restriction)
 - [Polymorphism](#polymorphism)
+- [GetObjectInfomation](#get-object-infor)
 <div id="class-instance"></div>
 
 ### 类和实例
@@ -95,3 +96,9 @@ class Dog(Animal):
 run(Dog())
 run(Student('Bob'))
 ```
+
+<div id="get-object-infor"></div>
+
+### 获取对象信息
+
+- type
