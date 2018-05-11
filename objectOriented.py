@@ -8,19 +8,27 @@ import types
 
 class Student(object):
     """docstring for Student"""
+    # email = 'test@email.com'
 
     #  构造方法
     def __init__(self, name, score=90):
+        # self.name, self.email, self.__score = name, 'test@email', score
         self.name, self.__score = name, score
 
     def print_score(self):
-        print('%s的成绩是:%s' % (self.name, self.__score))
+        print('%s的成绩是:%s, 邮箱是：%s' % (self.name, self.__score, self.email))
 
 
 tom = Student('tom')
 print(tom)
+print(tom.email)
+Student.email = 'modify@email'
 tom.print_score()
 print(tom._Student__score)
+bob = Student('Bob')
+bob.print_score()
+print(Student.email)
+print(bob.email)
 
 
 class Animal(object):

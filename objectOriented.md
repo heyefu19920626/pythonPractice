@@ -4,6 +4,7 @@
 - [Access-Restriction](#access-restriction)
 - [Polymorphism](#polymorphism)
 - [GetObjectInfomation](#get-object-infor)
+- [ClassAndInstanceProperty](#class-instance-property)
 <div id="class-instance"></div>
 
 ### 类和实例
@@ -140,4 +141,36 @@ def readImage(fp):
     if hasattr(fp, 'read'):
         return readData(fp)
     return None
+```
+
+<div id="class-instance-property"></div>
+
+# 实例属性和类属性
+- 给实例绑定属性的方法是通过实例变量,或者通过self变量，一般在__init__函数中
+- 类本身需要绑定一个属性可以直接在class中定义,这个属性桂类所有，所有实例都可以访问
+- 相同名称的实例属性将屏蔽掉类属性，当删除实例属性后，再使用相同的名称，访问到的将是类属性
+```python
+class Student(object):
+    """docstring for Student"""
+    email = 'test@email'
+
+    #  构造方法
+    def __init__(self, name, score=90):
+        # self.name, self.email, self.__score = name, 'test@email', score
+        self.name, self.__score = name, score
+
+    def print_score(self):
+        print('%s的成绩是:%s, 邮箱是：%s' % (self.name, self.__score, self.email))
+
+
+tom = Student('tom')
+print(tom)
+print(tom.email)
+Student.email = 'modify@email'
+tom.print_score()
+print(tom._Student__score)
+bob = Student('Bob')
+bob.print_score()
+print(Student.email)
+print(bob.email)
 ```
