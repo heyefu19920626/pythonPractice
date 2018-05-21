@@ -51,3 +51,5 @@ class Dog(Animal):
 
 run(Dog())
 run(Student('Bob'))
+
+print(type(cat))
