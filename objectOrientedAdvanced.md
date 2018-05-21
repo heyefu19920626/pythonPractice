@@ -87,3 +87,8 @@ print(dog.type)
 
 ### 多重继承
 - Mixln, MixIn的目的就是给一个类增加多个功能，这样，在设计类的时候，我们优先考虑通过多重继承来组合多个MixIn的功能，而不是设计多层次的复杂的继承关系
+- python继承顺序遵循C3算法，只要在一个地方找到了所需的内容，就不再继续查找
+- 拓扑排序(Topological Sorting) 是一个 有向无环图(DAG,Directed Acyclic Graph) 的所有顶点的线性序列,且该序列必须满足下面两个条件:
+    + 每个顶点出现且只出现一次
+    + 若存在一条从顶点A到顶点B的路径，那么在序列中顶点A出现在顶点B的前面
+- [Python多重继承之拓扑排序](https://kevinguo.me/2018/01/19/python-topological-sorting/)
