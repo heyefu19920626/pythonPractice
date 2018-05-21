@@ -1,54 +1,56 @@
-# é¢å‘å¯¹è±¡ç¼–ç¨‹(Object Oriented Programming)
+# ÃæÏò¶ÔÏó±à³Ì(Object Oriented Programming)
 
 - [Class-Instance](#class-instance)
 - [Access-Restriction](#access-restriction)
 - [Polymorphism](#polymorphism)
+- [GetObjectInfomation](#get-object-infor)
+- [ClassAndInstanceProperty](#class-instance-property)
 <div id="class-instance"></div>
 
-### ç±»å’Œå®ä¾‹
-- OOPæŠŠå¯¹è±¡ä½œä¸ºç¨‹åºçš„åŸºæœ¬å•å…ƒï¼Œä¸€ä¸ªå¯¹è±¡åŒ…å«äº†æ•°æ®å’Œæ“ä½œæ•°æ®çš„å‡½æ•° 
-- é¢å‘è¿‡ç¨‹çš„ç¨‹åºè®¾è®¡æŠŠè®¡ç®—æœºç¨‹åºè§†ä¸ºä¸€ç³»åˆ—çš„å‘½ä»¤é›†åˆï¼Œå³ä¸€ç»„å‡½æ•°çš„é¡ºåºæ‰§è¡Œ
-- é¢å‘å¯¹è±¡çš„ç¨‹åºè®¾è®¡æŠŠè®¡ç®—æœºç¨‹åºè§†ä¸ºä¸€ç»„å¯¹è±¡çš„é›†åˆï¼Œè€Œæ¯ä¸ªå¯¹è±¡éƒ½å¯ä»¥æ¥æ”¶å…¶ä»–å¯¹è±¡å‘è¿‡æ¥çš„æ¶ˆæ¯ï¼Œå¹¶å¤„ç†è¿™äº›æ¶ˆæ¯ï¼Œè®¡ç®—æœºç¨‹åºçš„æ‰§è¡Œå°±æ˜¯ä¸€ç³»åˆ—æ¶ˆæ¯åœ¨å„ä¸ªå¯¹è±¡ä¹‹é—´ä¼ é€’
-- ç»™å¯¹è±¡å‘æ¶ˆæ¯å®é™…ä¸Šå°±æ˜¯è°ƒç”¨å¯¹è±¡å¯¹åº”çš„å…³è”å‡½æ•°ï¼Œæˆ‘ä»¬ç§°ä¹‹ä¸ºå¯¹è±¡çš„æ–¹æ³•ï¼ˆMethodï¼‰
-- æ•°æ®å°è£…ã€ç»§æ‰¿å’Œå¤šæ€æ˜¯é¢å‘å¯¹è±¡çš„ä¸‰å¤§ç‰¹ç‚¹
-- é¢å‘å¯¹è±¡æœ€é‡è¦çš„æ¦‚å¿µå°±æ˜¯ç±»ï¼ˆClassï¼‰å’Œå®ä¾‹ï¼ˆInstanceï¼‰
-- å’Œæ™®é€šçš„å‡½æ•°ç›¸æ¯”ï¼Œåœ¨ç±»ä¸­å®šä¹‰çš„å‡½æ•°åªæœ‰ä¸€ç‚¹ä¸åŒï¼Œå°±æ˜¯ç¬¬ä¸€ä¸ªå‚æ•°æ°¸è¿œæ˜¯å®ä¾‹å˜é‡selfï¼Œå¹¶ä¸”ï¼Œè°ƒç”¨æ—¶ï¼Œä¸ç”¨ä¼ é€’è¯¥å‚æ•°
-- ç±»çš„__init__æ„é€ å‡½æ•°
+### ÀàºÍÊµÀı
+- OOP°Ñ¶ÔÏó×÷Îª³ÌĞòµÄ»ù±¾µ¥Ôª£¬Ò»¸ö¶ÔÏó°üº¬ÁËÊı¾İºÍ²Ù×÷Êı¾İµÄº¯Êı 
+- ÃæÏò¹ı³ÌµÄ³ÌĞòÉè¼Æ°Ñ¼ÆËã»ú³ÌĞòÊÓÎªÒ»ÏµÁĞµÄÃüÁî¼¯ºÏ£¬¼´Ò»×éº¯ÊıµÄË³ĞòÖ´ĞĞ
+- ÃæÏò¶ÔÏóµÄ³ÌĞòÉè¼Æ°Ñ¼ÆËã»ú³ÌĞòÊÓÎªÒ»×é¶ÔÏóµÄ¼¯ºÏ£¬¶øÃ¿¸ö¶ÔÏó¶¼¿ÉÒÔ½ÓÊÕÆäËû¶ÔÏó·¢¹ıÀ´µÄÏûÏ¢£¬²¢´¦ÀíÕâĞ©ÏûÏ¢£¬¼ÆËã»ú³ÌĞòµÄÖ´ĞĞ¾ÍÊÇÒ»ÏµÁĞÏûÏ¢ÔÚ¸÷¸ö¶ÔÏóÖ®¼ä´«µİ
+- ¸ø¶ÔÏó·¢ÏûÏ¢Êµ¼ÊÉÏ¾ÍÊÇµ÷ÓÃ¶ÔÏó¶ÔÓ¦µÄ¹ØÁªº¯Êı£¬ÎÒÃÇ³ÆÖ®Îª¶ÔÏóµÄ·½·¨£¨Method£©
+- Êı¾İ·â×°¡¢¼Ì³ĞºÍ¶àÌ¬ÊÇÃæÏò¶ÔÏóµÄÈı´óÌØµã
+- ÃæÏò¶ÔÏó×îÖØÒªµÄ¸ÅÄî¾ÍÊÇÀà£¨Class£©ºÍÊµÀı£¨Instance£©
+- ºÍÆÕÍ¨µÄº¯ÊıÏà±È£¬ÔÚÀàÖĞ¶¨ÒåµÄº¯ÊıÖ»ÓĞÒ»µã²»Í¬£¬¾ÍÊÇµÚÒ»¸ö²ÎÊıÓÀÔ¶ÊÇÊµÀı±äÁ¿self£¬²¢ÇÒ£¬µ÷ÓÃÊ±£¬²»ÓÃ´«µİ¸Ã²ÎÊı
+- ÀàµÄ__init__¹¹Ôìº¯Êı
 ```python
-# æ‹¬å·å†…objectè¡¨ç¤ºç»§æ‰¿çš„ç±»ï¼Œå¦‚æœæ²¡æœ‰ï¼Œåˆ™å†™object
+# À¨ºÅÄÚobject±íÊ¾¼Ì³ĞµÄÀà£¬Èç¹ûÃ»ÓĞ£¬ÔòĞ´object
 class Student(object):
     """docstring for Student"""
 
-    #  æ„é€ æ–¹æ³•
+    #  ¹¹Ôì·½·¨
     def __init__(self, name, score=90):
         self.name, self.score = name, score
 
     def print_score(self):
-        print('%sçš„æˆç»©æ˜¯:%s' % (self.name, self.score))
+        print('%sµÄ³É¼¨ÊÇ:%s' % (self.name, self.score))
 
 
 tom = Student('tom')
 print(tom)
 tom.print_score()
 ```
-- Pythonå…è®¸å¯¹å®ä¾‹å˜é‡ç»‘å®šä»»ä½•æ•°æ®
+- PythonÔÊĞí¶ÔÊµÀı±äÁ¿°ó¶¨ÈÎºÎÊı¾İ
 
 <div id="access-restriction"></div>
 
-### è®¿é—®é™åˆ¶
-- è®©å†…éƒ¨å±æ€§ä¸è¢«å¤–éƒ¨è®¿é—®ï¼Œå¯ä»¥æŠŠå±æ€§çš„åç§°å‰åŠ ä¸Šä¸¤ä¸ªä¸‹åˆ’çº¿__
-- å®é™…ä¸Šè¿˜æ˜¯å¯ä»¥è®¿é—®,é€šè¿‡_Student__score,å³_ç±»å__å˜é‡å,å› ä¸ºPythonè§£é‡Šå™¨å¯¹å¤–æŠŠ__nameå˜é‡æ”¹æˆäº†_Student__name,ä¸åŒçš„Pythonè§£é‡Šå™¨æœ‰å¯èƒ½æ”¹æˆä¸åŒæ”¹çš„å˜é‡å
-- å¯ä»¥ä¸ºå¤–éƒ¨ç•™å‡ºgetï¼Œsetæ¥å£
+### ·ÃÎÊÏŞÖÆ
+- ÈÃÄÚ²¿ÊôĞÔ²»±»Íâ²¿·ÃÎÊ£¬¿ÉÒÔ°ÑÊôĞÔµÄÃû³ÆÇ°¼ÓÉÏÁ½¸öÏÂ»®Ïß__
+- Êµ¼ÊÉÏ»¹ÊÇ¿ÉÒÔ·ÃÎÊ,Í¨¹ı_Student__score,¼´_ÀàÃû__±äÁ¿Ãû,ÒòÎªPython½âÊÍÆ÷¶ÔÍâ°Ñ__name±äÁ¿¸Ä³ÉÁË_Student__name,²»Í¬µÄPython½âÊÍÆ÷ÓĞ¿ÉÄÜ¸Ä³É²»Í¬¸ÄµÄ±äÁ¿Ãû
+- ¿ÉÒÔÎªÍâ²¿Áô³öget£¬set½Ó¿Ú
 ```python
 class Student(object):
     """docstring for Student"""
 
-    #  æ„é€ æ–¹æ³•
+    #  ¹¹Ôì·½·¨
     def __init__(self, name, score=90):
         self.name, self.__score = name, score
 
     def print_score(self):
-        print('%sçš„æˆç»©æ˜¯:%s' % (self.name, self.__score))
+        print('%sµÄ³É¼¨ÊÇ:%s' % (self.name, self.__score))
 
 
 tom = Student('tom')
@@ -59,10 +61,10 @@ print(tom._Student__score)
 
 <div id="polymorphism"></div>
 
-### ç»§æ‰¿å’Œå¤šæ€
-- å®šä¹‰ä¸€ä¸ªclassçš„æ—¶å€™ï¼Œå¯ä»¥ä»æŸä¸ªç°æœ‰çš„classç»§æ‰¿ï¼Œæ–°çš„classç§°ä¸ºå­ç±»ï¼ˆSubclassï¼‰ï¼Œè€Œè¢«ç»§æ‰¿çš„classç§°ä¸ºåŸºç±»ã€çˆ¶ç±»æˆ–è¶…ç±»ï¼ˆBase classã€Super classï¼‰
-- ç»§æ‰¿å¯ä»¥æŠŠçˆ¶ç±»çš„æ‰€æœ‰åŠŸèƒ½éƒ½ç›´æ¥æ‹¿è¿‡æ¥ï¼Œè¿™æ ·å°±ä¸å¿…é‡é›¶åšèµ·ï¼Œå­ç±»åªéœ€è¦æ–°å¢è‡ªå·±ç‰¹æœ‰çš„æ–¹æ³•ï¼Œä¹Ÿå¯ä»¥æŠŠçˆ¶ç±»ä¸é€‚åˆçš„æ–¹æ³•è¦†ç›–é‡å†™
-- åŠ¨æ€è¯­è¨€çš„é¸­å­ç±»å‹ç‰¹ç‚¹å†³å®šäº†ç»§æ‰¿ä¸åƒé™æ€è¯­è¨€é‚£æ ·æ˜¯å¿…é¡»çš„
+### ¼Ì³ĞºÍ¶àÌ¬
+- ¶¨ÒåÒ»¸öclassµÄÊ±ºò£¬¿ÉÒÔ´ÓÄ³¸öÏÖÓĞµÄclass¼Ì³Ğ£¬ĞÂµÄclass³ÆÎª×ÓÀà£¨Subclass£©£¬¶ø±»¼Ì³ĞµÄclass³ÆÎª»ùÀà¡¢¸¸Àà»ò³¬Àà£¨Base class¡¢Super class£©
+- ¼Ì³Ğ¿ÉÒÔ°Ñ¸¸ÀàµÄËùÓĞ¹¦ÄÜ¶¼Ö±½ÓÄÃ¹ıÀ´£¬ÕâÑù¾Í²»±ØÖØÁã×öÆğ£¬×ÓÀàÖ»ĞèÒªĞÂÔö×Ô¼ºÌØÓĞµÄ·½·¨£¬Ò²¿ÉÒÔ°Ñ¸¸Àà²»ÊÊºÏµÄ·½·¨¸²¸ÇÖØĞ´
+- ¶¯Ì¬ÓïÑÔµÄÑ¼×ÓÀàĞÍÌØµã¾ö¶¨ÁË¼Ì³Ğ²»Ïñ¾²Ì¬ÓïÑÔÄÇÑùÊÇ±ØĞëµÄ
 ```python
 class Animal(object):
 
@@ -79,7 +81,7 @@ def run(animal):
     if isinstance(animal, Animal):
         animal.run()
     else:
-        print('è¯·ä¼ å…¥Animal')
+        print('Çë´«ÈëAnimal')
 
 
 cat = Cat()
@@ -94,4 +96,81 @@ class Dog(Animal):
 
 run(Dog())
 run(Student('Bob'))
+```
+
+<div id="get-object-infor"></div>
+
+### »ñÈ¡¶ÔÏóĞÅÏ¢
+
+- type
+    - type()º¯Êı·µ»Ø¶ÔÓ¦µÄClassÀàĞÍ
+    - ÔÚifÓï¾äÖĞÅĞ¶Ï,¿ÉÒÔÊ¹ÓÃtypesÄ£¿éÖĞ¶¨ÒåµÄ³£Á¿
+- isinstance
+    - isinstance()¾Í¿ÉÒÔ¸æËßÎÒÃÇ£¬Ò»¸ö¶ÔÏóÊÇ·ñÊÇÄ³ÖÖÀàĞÍ
+- dir
+    - dir()º¯Êı£¬Ëü·µ»ØÒ»¸ö°üº¬×Ö·û´®µÄlist£¬±ÈÈç£¬»ñµÃÒ»¸östr¶ÔÏóµÄËùÓĞÊôĞÔºÍ·½·¨
+    - ÀàËÆ__xxx__µÄÊôĞÔºÍ·½·¨ÔÚPythonÖĞ¶¼ÊÇÓĞÌØÊâÓÃÍ¾µÄ,±ÈÈç__len__·½·¨·µ»Ø³¤¶È
+- ²Ù×÷¶ÔÏóµÄ×´Ì¬
+    - Ê¹ÓÃgetattr(), setattr(),ÒÔ¼°hasattr()Ö±½Ó²Ù×÷¶ÔÏó×´Ì¬
+    - Ö»ÓĞÔÚ²»ÖªµÀ¶ÔÏóĞÅÏ¢µÄÊ±ºò£¬ÎÒÃÇ²Å»áÈ¥»ñÈ¡¶ÔÏóĞÅÏ¢
+```python
+# type
+print(type(123))
+print(types.FunctionType == type(run))
+# isinstance
+print(isinstance(cat, Animal))
+print(isinstance(123, str))
+# dir
+print(dir('abc'))
+# attr
+print(hasattr(cat, 'run'))
+print(hasattr(cat, 'runs'))
+try:
+    print(cat.name)
+except Exception as e:
+    print(e)
+setattr(cat, 'name', 'Tome')
+print(cat.name)
+fn = getattr(cat, 'run')
+fn()
+
+
+def readImage(fp):
+    # ¼ÙÉèÎÒÃÇÏ£Íû´ÓÎÄ¼şÁ÷fpÖĞ¶ÁÈ¡Í¼Ïñ£¬ÎÒÃÇÊ×ÏÈÒªÅĞ¶Ï¸Ãfp¶ÔÏóÊÇ·ñ´æÔÚread·½·¨£¬
+    # Èç¹û´æÔÚ£¬Ôò¸Ã¶ÔÏóÊÇÒ»¸öÁ÷£¬Èç¹û²»´æÔÚ£¬ÔòÎŞ·¨¶ÁÈ¡
+    if hasattr(fp, 'read'):
+        return readData(fp)
+    return None
+```
+
+<div id="class-instance-property"></div>
+
+### ÊµÀıÊôĞÔºÍÀàÊôĞÔ
+- ¸øÊµÀı°ó¶¨ÊôĞÔµÄ·½·¨ÊÇÍ¨¹ıÊµÀı±äÁ¿,»òÕßÍ¨¹ıself±äÁ¿£¬Ò»°ãÔÚ__init__º¯ÊıÖĞ
+- Àà±¾ÉíĞèÒª°ó¶¨Ò»¸öÊôĞÔ¿ÉÒÔÖ±½ÓÔÚclassÖĞ¶¨Òå,Õâ¸öÊôĞÔ¹ğÀàËùÓĞ£¬ËùÓĞÊµÀı¶¼¿ÉÒÔ·ÃÎÊ
+- ÏàÍ¬Ãû³ÆµÄÊµÀıÊôĞÔ½«ÆÁ±ÎµôÀàÊôĞÔ£¬µ±É¾³ıÊµÀıÊôĞÔºó£¬ÔÙÊ¹ÓÃÏàÍ¬µÄÃû³Æ£¬·ÃÎÊµ½µÄ½«ÊÇÀàÊôĞÔ
+```python
+class Student(object):
+    """docstring for Student"""
+    email = 'test@email'
+
+    #  ¹¹Ôì·½·¨
+    def __init__(self, name, score=90):
+        # self.name, self.email, self.__score = name, 'test@email', score
+        self.name, self.__score = name, score
+
+    def print_score(self):
+        print('%sµÄ³É¼¨ÊÇ:%s, ÓÊÏäÊÇ£º%s' % (self.name, self.__score, self.email))
+
+
+tom = Student('tom')
+print(tom)
+print(tom.email)
+Student.email = 'modify@email'
+tom.print_score()
+print(tom._Student__score)
+bob = Student('Bob')
+bob.print_score()
+print(Student.email)
+print(bob.email)
 ```
