@@ -44,6 +44,8 @@ Teacher.set_age = set_age
 t.set_age(25)
 print(t.age)
 
+# @property
+
 
 class Animal(object):
 
@@ -62,3 +64,18 @@ class Animal(object):
 dog = Animal()
 dog.type = 'dog'
 print(dog.type)
+
+
+class Dog(Animal, Student):
+    pass
+
+
+class Cat(Animal, Teacher):
+    pass
+
+
+class Bob(Dog, Cat):
+    pass
+
+
+print(Bob.__mro__)

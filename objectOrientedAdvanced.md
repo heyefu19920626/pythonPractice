@@ -2,6 +2,7 @@
 
 - [__slots__](#slots)
 - [@property](#@property)
+- [多重继承](#multiple-inherit)
 
 <div id="slots"></div>
 
@@ -81,3 +82,8 @@ dog = Animal()
 dog.type = 'dog'
 print(dog.type)
 ```
+
+<div id="multiple-inherit"></div>
+
+### 多重继承
+- Mixln, MixIn的目的就是给一个类增加多个功能，这样，在设计类的时候，我们优先考虑通过多重继承来组合多个MixIn的功能，而不是设计多层次的复杂的继承关系
