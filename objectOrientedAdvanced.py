@@ -79,3 +79,87 @@ class Bob(Dog, Cat):
 
 
 print(Bob.__mro__)
+
+
+# 定制类
+
+print(dog)
+
+
+def get_str(self):
+    return '这是Animal类'
+
+
+Animal.__str__ = get_str
+print(dog)
+
+
+class Fib(object):
+    def __init__(self):
+        self.a, self.b = 0, 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.a, self.b = self.b, self.a + self.b
+        if self.a > 1000:
+            raise StopIteration()
+        return self.a
+
+    def __getitem__(self, n):
+        if isinstance(n, int):
+            a, b = 1, 1
+            for x in range(n):
+                a, b = b, a + b
+            return a
+        if isinstance(n, slice):
+            start = n.start
+            stop = n.stop
+            step = n.step
+            if start is None:
+                start = 0
+            if step is None:
+                step = 1
+            if stop is None:
+                stop = 20
+            a, b = 1, 1
+            L = []
+            for x in range(stop):
+                if x >= start:
+                    L.append(a)
+                a, b = b, a + b
+            return L
+
+
+for n in Fib():
+    print(n)
+
+f = Fib()
+print(f[6])
+print(f[:])
+print(f[:6:2])
+x = list(range(30))
+print(x)
+print(x[::2])
+
+
+def get_attr(self, attr):
+    if attr == 'country':
+        return lambda: 'China'
+    return 'None'
+
+
+Student.__getattr__ = get_attr
+print(s.country())
+print(s.address)
+
+
+def call(self, address='Beijing'):
+    print('My name is %s, I live in %s' % (self.name, address))
+
+
+Student.__call__ = call
+s()
+print(callable(Student()))
+print(callable([1,2,3,4,5]))

@@ -1,12 +1,14 @@
 # 面向对象高级编程
 
-- [__slots__](#slots)
+- [\_\_slots\_\_](#slots)
 - [@property](#@property)
 - [多重继承](#multiple-inherit)
+- [定制类](#custom-class)
+- [使用枚举类](#eunm-class)
 
 <div id="slots"></div>
 
-### 使用__slots__限制实例的属性
+### 使用\_\_slots\_\_限制实例的属性
 - 给实例绑定属性和方法
 ```python
 from types import MethodType
@@ -92,3 +94,106 @@ print(dog.type)
     + 每个顶点出现且只出现一次
     + 若存在一条从顶点A到顶点B的路径，那么在序列中顶点A出现在顶点B的前面
 - [Python多重继承之拓扑排序](https://kevinguo.me/2018/01/19/python-topological-sorting/)
+
+<div id="custom-class"></div>
+
+### 定制类
+- __\_\_str\_\___
+```python
+print(dog)
+
+
+def get_str(self):
+    return '这是Animal类'
+
+
+Animal.__str__ = get_str
+print(dog)
+```
+- __\_\_repr\_\___
+    - __str__()返回用户看到的字符串，而__repr__()返回程序开发者看到的字符串
+```python
+__repr__ = __str__
+```
+- __\_\_iter\_\___
+    - 如果一个类想被用于for ... in循环，类似list或tuple那样，就必须实现一个__iter__()方法，该方法返回一个迭代对象，然后，Python的for循环就会不断调用该迭代对象的__next__()方法拿到循环的下一个值，直到遇到StopIteration错误时退出循环
+```python
+class Fib(object):
+    def __init__(self):
+        self.a, self.b = 0, 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.a, self.b = self.b, self.a + self.b
+        if self.a > 1000:
+            raise StopIteration()
+        return self.a
+
+
+for n in Fib():
+    print(n)
+```
+- __\_\_getitem\_\___
+    + 要表现得像list那样按照下标取出元素，需要实现\_\_getitem\_\_()
+    + 如果要支持切片操作，需要自己定义
+```python
+def __getitem__(self, n):
+    a, b = 1, 1
+    for x in range(n):
+        a, b = b, a + b
+    return a
+f = Fib()
+print(f[6])
+
+# 支持slice,不支持step
+def __getitem__(self, n):
+    if isinstance(n, int):
+        a, b = 1, 1
+        for x in range(n):
+            a, b = b, a + b
+        return a
+    if isinstance(n, slice):
+        start = n.start
+        stop = n.stop
+        if start is None:
+            start = 0
+        a, b = 1, 1
+        L = []
+        for x in range(stop):
+            if x >= start:
+                L.append(a)
+            a, b = b, a + b
+        return L
+```
+- __\_\_getattr\_\___
+    - 动态返回一个属性
+    - 只有在没有找到属性的情况下，才调用\_\_getattr\_\_
+```python
+def get_attr(self, attr):
+    if attr == 'country':
+        return lambda: 'China'
+    return 'None'
+
+Student.__getattr__ = get_attr
+print(s.country())
+```
+- __\_\_call\_\___
+    - 任何类，只需要定义一个\_\_call\_\_()方法，就可以直接对实例进行调用
+    - 通过callable()函数，判断一个对象是否可调用
+```python
+def call(self, address='Beijing'):
+    print('My name is %s, I live in %s' % (self.name, address))
+
+
+Student.__call__ = call
+s()
+print(callable(Student()))
+print(callable([1,2,3,4,5]))
+```
+- 还有更多的可定制方法，[Python官方文档](https://docs.python.org/3/reference/datamodel.html#special-method-names)
+
+<div id="eunm-class"></div>
+
+### 使用枚举类
