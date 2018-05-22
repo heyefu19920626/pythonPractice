@@ -1,4 +1,5 @@
 from types import MethodType
+from enum import Enum, unique
 
 
 class Student(object):
@@ -162,4 +163,46 @@ def call(self, address='Beijing'):
 Student.__call__ = call
 s()
 print(callable(Student()))
-print(callable([1,2,3,4,5]))
+print(callable([1, 2, 3, 4, 5]))
+
+# Enum
+
+Month = Enum('Month', ('Jan', 'Feb', 'Mar'))
+for name, member in Month.__members__.items():
+    print(name, '=>', member, ',', member.value)
+
+
+@unique
+class Weekday(Enum):
+    Sun = 0
+    Mon = 1
+    Tue = 2
+    Web = 3
+    Thu = 4
+    Fri = 5
+    Sat = 6
+
+
+print(Month(2))
+print(Weekday.Mon)
+print(Weekday['Fri'])
+print(Weekday(3).value)
+
+
+@unique
+class Gender(Enum):
+    Male = 0
+    Female = 1
+
+
+class Test(object):
+    def __init__(self, name, gender):
+        self.name = name
+        self.gender = gender
+
+
+bart = Test('bart', Gender.Male)
+print(bart.gender == Gender.Male)
+
+
+# MetaClass

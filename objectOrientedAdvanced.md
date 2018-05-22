@@ -5,6 +5,7 @@
 - [多重继承](#multiple-inherit)
 - [定制类](#custom-class)
 - [使用枚举类](#eunm-class)
+- [使用元类](#meta-calss)
 
 <div id="slots"></div>
 
@@ -197,3 +198,41 @@ print(callable([1,2,3,4,5]))
 <div id="eunm-class"></div>
 
 ### 使用枚举类
+- Enum可以把一组相关常量定义在一个class中，且class不可变，而且成员可以直接比较
+- 自定义类,使用Enum派生
+- @unique装饰器帮助检查保证没有重复值
+- 既可以用成员名称引用枚举常量，又可以直接根据value的值获得枚举常量
+```python
+from enmu import Enum, unique
+Month = Enum('Month', ('Jan', 'Feb', 'Mar'))
+for name, member in Month.__members__.items():
+    print(name, '=>', member, ',', member.value)
+
+
+@unique
+class Weekday(Enum):
+    Sun = 0
+    Mon = 1
+    Tue = 2
+    Web = 3
+    Thu = 4
+    Fri = 5
+    Sat = 6
+
+
+print(Month(2))
+print(Weekday.Mon)
+print(Weekday['Fri'])
+print(Weekday(3).value)
+```
+
+<div id="meta-calss"></div>
+
+### 使用元类
+- 动态语言和静态语言最大的不同，就是函数和类的定义，不是编译时定义的，而是运行时动态创建的
+- type()函数可以查看一个类型或变量的类型
+- type()函数既可以返回一个对象的类型，又可以创建出新的类型
+- 要创建一个class对象，type()函数依次传入3个参数
+    - class的名称
+    - 继承的父类集合，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法
+    - class的方法名称与函数绑定
