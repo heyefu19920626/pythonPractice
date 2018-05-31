@@ -215,3 +215,19 @@ Hello = type('Hello', (object,), dict(hello=fn))
 
 h = Hello()
 h.hello()
+
+
+class ListMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['add'] = lambda self, value: self.append(value)
+        print('type.__new__()')
+        return type.__new__(cls, name, bases, attrs)
+
+
+class MyList(list, metaclass=ListMetaclass):
+    pass
+
+
+mylist = MyList()
+mylist.add(9)
+print(mylist)

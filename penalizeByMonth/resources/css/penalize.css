@@ -1,0 +1,213 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    font-size: 10px;
+}
+body{
+    margin: 0;
+    background: url('../../images/workUpAndDownWorkDrillBg/u35.png') no-repeat;
+    background-size: 100% 100%;
+}
+.top{
+    height: 5%;
+    line-height: 5%;
+    color: #fff;
+    text-align: center;
+    font: normal 700 2rem 'Arial Negreta', 'Arial Normal', 'Arial';
+}
+#main-left{
+    float: left;
+    height: 90%;
+    width: 60%;
+    margin-left: 1.5%;
+    border: 1px solid rgba(1, 87, 155,1);
+    color: #fff;
+    font-size: 1.4rem;
+}
+#div-table{
+    width: 95%;
+    margin: auto;
+}
+#div-map{
+    float: right;
+    margin-right: 1.5%;
+    width: 35%;
+    height: 90%;
+    border: 1px solid rgba(1, 87, 155,1);
+}
+.penalize-table{
+    box-sizing: border-box;
+    margin: auto;
+    border-collapse: collapse;
+    border: 1px solid #01579b;
+    width: 100%;
+    padding: 0;
+}
+.scroll-tbody{
+    display: block;
+    width: 100%;
+    overflow-y: scroll;
+}
+table thead, tbody tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.thead-cal {
+    width: calc( 100% - 1em);
+}
+.width-thead-all {
+    width: 100%;
+}
+thead th:first-child, thead tr:last-child{
+    cursor: pointer;
+}
+.penalize-table th{
+    padding: 0.9rem 0;
+}
+.penalize-table tbody th{
+    font: 1em Verdana, sans-serif;
+}
+.penalize-table td{
+    font: 1em Verdana, sans-serif;
+}
+.penalize-table thead{
+    background: #2e4958;
+}
+.penalize-table tbody tr:hover{
+    background-color: #01579b;
+}
+.single{
+    background-color: #05527c;
+}
+.double{
+    background-color: #174164;
+}
+.table-footer{
+}
+.table-footer-left{
+    float: left;
+    padding-top: 0.5rem;
+}
+.table-footer-right{
+    float: right;
+    padding-bottom: 0.3rem;
+}
+.table-footer-right > a{
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    background-color: #7b7b7b;
+    padding: 0.2rem 0.4rem;
+    min-width: 1.8rem;
+    text-align: center;
+}
+.table-footer-right > a:hover{
+    background-color: #01579b;
+}
+#search{
+    width: 100%;
+    margin-top: 1rem;
+}
+#search label{
+    font-size: 1.5rem;
+}
+#search input{
+    width: 30%;
+    height: 1.5rem;
+    font-size: 1.2rem;
+    background-color: #174164;
+    color: #fff;
+    border: 0.1rem solid #01579b;
+    border-radius: 0.4rem;
+    text-align: right;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+.wd-all{
+    width: 100%;
+}
+.wd-all > label{
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+.wd-70{
+    width: 70%;
+}
+.wd-all > select{
+    background-color: #174164;
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border: 0.1rem solid #01579b;
+    border-radius: 0.4rem;
+}
+.division{
+    float: left;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 0.1rem;
+    background-color: #01579b;
+}
+.button{
+    display: inline-block;
+    padding: 0.2rem 1.2rem;
+    background-color: #01579b;
+    border: 0.1rem solid #01579b;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+.button:hover{
+    background-color: #174164;
+}
+.div-date{
+    display: none;
+    position: absolute;
+    height: 10rem;
+    z-index: 1;
+    color: #fff;
+    background-color: red;
+    font-size: 1.6rem;
+}
+.date-year{
+    display: flex;
+    width: 100%;
+    line-height: 3rem;
+    text-align: center;
+    background-color: #438eb9;
+    padding: 0;
+}
+#minus, #add{
+    display: inline-block;
+    height: 100%;
+    width: 20%;
+    cursor: pointer;
+    padding: 0;
+}
+#year{
+    display: inline-block;
+    height: 100%;
+    width: 60%;
+    margin: 0;
+}
+.date-month{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.date-month > span{
+    display: inline-block;
+    width: 25%;
+    line-height: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    background-color: #438eb9;
+}
+.date-month > span:hover, #minus:hover, #add:hover{
+    background-color: #01579b;
+}

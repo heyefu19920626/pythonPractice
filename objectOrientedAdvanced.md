@@ -249,4 +249,24 @@ h = Hello()
 h.hello()
 ```
 
-- metaclass
+- \_\_new\_\_接收四个参数
+    - 当前准备创建类的对象
+    - 类的名字
+    - 继承的父类集合
+    - 方法集合
+```python
+class ListMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['add'] = lambda self, value: self.append(value)
+        print('type.__new__()')
+        return type.__new__(cls, name, bases, attrs)
+
+
+class MyList(list, metaclass=ListMetaclass):
+    pass
+
+
+mylist = MyList()
+myList.add(9)
+print(mylist)
+```

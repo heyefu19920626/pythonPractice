@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>海事行政处罚统计</title>
+    <script src="resources/js/jquery-1.8.3.js"></script>
+    <script src="resources/js/echarts.min.js"></script>
+    <script src='<%=request.getContextPath()%>/js/layer/layer.min.js'></script>
+    <link rel="stylesheet"  href='<%=request.getContextPath()%>/js/layer/skin/layer.css'>
+    <link rel="stylesheet" type="text/css" href="resources/css/penalize.css">
+</head>
+<body>
+    <div id="top" class="top">海事行政处罚统计</div>
+    <!-- left  start -->
+    <div id="main-left">
+        <div id="div-table">
+            <!-- search start -->
+            <div id="search">
+                <div class="left wd-70">
+                    <label for="time">开始时间：</label>
+                    <input id="start" type="text" name="start" readonly="readonly">
+                    &ensp;
+                    <label>结束时间：</label>
+                    <input id="end" type="text" name="end" readonly="readonly">
+                    <!-- calendar start  -->
+                    <div class="div-date">
+                        <div class="date-year">
+                            <span id="minus"><</span>
+                            <span id="year">2018</span>
+                            <span id="add">></span>
+                        </div>
+                        <div class="date-month">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <span id="query" class="button">查询</span>
+                </div>
+            </div>
+            <!-- search end -->
+            <div class="division"></div>
+            <!-- page setting start -->
+            <div class="left wd-all">
+                <label>每页显示</label>
+                <select id="select">
+                    <option value="5">5</option>
+                    <option value="15" selected>15</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="all">所有</option>
+                </select>
+                <label>条记录</label>
+            </div>
+            <!--  page setting end -->
+            <div class="table-footer">
+                <div class="table-footer-left">显示0条记录</div>
+                <div class="table-footer-right">
+                    <a href="#" id="first">首页</a>
+                    <a href="#" id="previous">前一页</a>
+                    <a href="#" id="next">后一页</a>
+                    <a href="#" id="last">尾页</a>
+                </div>
+            </div>
+            <!-- table start -->
+            <table id="" class="penalize-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2" id="sort-0">时间</th>
+                        <th colspan="2">船舶</th>
+                        <th colspan="2">船员</th>
+                        <th colspan="2">船舶所有人</th>
+                        <th colspan="2">其他</th>
+                    </tr>
+                    <tr>
+                        <th id="sort-1">处罚数(件)</th>
+                        <th id="sort-2">罚款(元)</th>
+                        <th id="sort-3">处罚数(件)</th>
+                        <th id="sort-4">罚款(元)</th>
+                        <th id="sort-5">处罚数(件)</th>
+                        <th id="sort-6">罚款(元)</th>
+                        <th id="sort-7">处罚数(件)</th>
+                        <th id="sort-8">罚款(元)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <!--  table end -->
+        </div>
+    </div>
+    <div id="div-map"></div>
+    
+
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+    getData();
+});
+</script>
+<script src="resources/js/getData.js"></script>
+<script src="resources/js/penalize.js"></script>
+</html>
