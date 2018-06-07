@@ -2,6 +2,8 @@
 
 - [错误处理](#error-handle)
 - [调试](#debug)
+- [单元测试](#unit-testing)
+- [文档测试](#document-test)
 
 
 <div id="error-handle"></div>
@@ -65,3 +67,66 @@ import pdb
 logging.basicConfig(level=logging.INFO)
 pdb.set_trace()
 ```
+
+<div id="unit-testing"></div>
+
+### 单元测试
+- unittest
+    - 引入Python自带的unittest模块
+    - 编写测试类，从unittest.TestCase继承
+    - 以test开头的方法就是测试方法，不以test开头的方法不被认为是测试方法，测试的时候不会被执行
+    - 对每一类测试都需要编写一个test_xxx()方法。由于unittest.TestCase提供了很多内置的条件判断，我们只需要调用这些方法就可以断言输出是否是我们所期望的。最常用的断言就是assertEqual()
+- 运行单元测试
+    - unittest.main()
+    - 命令行通过参数 -m unitest
+    > python -m unittest **.py
+- setUp与tearDown
+    - 可以在单元测试中编写两个特殊的setUp()和tearDown()方法。这两个方法会分别在每调用一个测试方法的前后分别被执行
+```python
+import unittest
+from errorDebugTest import Dict
+
+
+class TestDict(unittest.TestCase):
+
+    def test_init(self):
+        d = Dict(a='aA', b='bB')
+        self.assertEqual(d.a, 'aA')
+        self.assertEqual(d.b, 'bB')
+        self.assertTrue(isinstance(d, dict))
+
+    def test_key(self):
+        d = Dict()
+        d['key'] = 'value'
+        self.assertEqual(d.key, 'value')
+
+    def test_attr(self):
+        d = Dict()
+        d.key = 'value'
+        self.assertTrue('key' in d)
+        self.assertEqual(d['key'], 'value')
+
+    def test_keyerror(self):
+        d = Dict()
+        with self.assertRaises(KeyError):
+            value = d['empty']
+
+    def test_attrerror(self):
+        d = Dict()
+        with self.assertRaises(AttributeError):
+            value = d.empty
+
+    def setUp(self):
+        print('setUp')
+
+    def tearDown(self):
+        print('tearDown')
+
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+<div id="document-test"></div>
+
+### 文档测试

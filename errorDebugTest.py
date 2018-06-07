@@ -59,12 +59,35 @@ def main():
     print('99 + 88 + 7.6 =', r)
 
 
-pdb.set_trace()
+# pdb.set_trace()
 main()
 
 
 s = '0'
 n = int(s)
 logging.info('m = %d' % n)
-print(10 / n)
+print(10 / 3)
 print('end')
+
+
+class Dict(dict):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except Exception as e:
+            raise AttributeError
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
+d = Dict(a='1', b='2')
+print(d)
+print(d.a)
+
+d_d = {'c': '3', 'd': '4'}
+print(d_d)
+print(d_d['c'])
+d_d_d = dict({'e': '5', 'f': '6'})
