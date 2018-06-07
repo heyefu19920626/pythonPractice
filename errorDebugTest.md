@@ -129,4 +129,17 @@ if __name__ == '__main__':
 
 <div id="document-test"></div>
 
-### 文档测试
+### 文档测试 doctest
+- 当模块正常导入时，doctest不会被执行。只有在命令行直接运行时，才执行doctest
+```python
+'''
+>>> d = Dict()
+>>> d['x'] = 100
+>>> d.x
+100
+'''
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
+```

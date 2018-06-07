@@ -71,6 +71,12 @@ print('end')
 
 
 class Dict(dict):
+    '''
+    >>> d = Dict()
+    >>> d['x'] = 100
+    >>> d.x
+    100
+    '''
     def __init__(self, **kw):
         super().__init__(**kw)
 
@@ -91,3 +97,8 @@ d_d = {'c': '3', 'd': '4'}
 print(d_d)
 print(d_d['c'])
 d_d_d = dict({'e': '5', 'f': '6'})
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
