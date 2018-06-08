@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from io import StringIO, BytesIO
 
 
 
@@ -17,3 +18,20 @@ with open('test.py') as f:
 with open('miku.jpg', 'rb') as f:
     with open('miku_1.jpg', 'wb') as w:
         w.write(f.read())
+
+
+# StringIO
+s = StringIO('12345')
+print(s.tell())
+print(s.getvalue())
+s.write('abc')
+print(s.getvalue())
+print(s.tell())
+s.write('defg')
+print(s.getvalue())
+s.seek(0, 0)
+print(s.read())
+
+b = BytesIO();
+b.write('中文'.encode('utf-8'))
+print(b.getvalue())

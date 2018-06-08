@@ -1,6 +1,7 @@
 # IO编程
 
 - [文件读写](#file-read-write)
+- [StringIO与BytesIO](#stringIO-bytesIO)
 
 <div id="file-read-write"></div>
 
@@ -28,3 +29,30 @@ with open('miku.jpg', 'rb') as f:
 - file-like Object
     - 像open()函数返回的这种有个read()方法的对象，在Python中统称为file-like Objec
     - file-like Object不要求从特定类继承，只要写个read()方法就行
+
+
+<div id="stringIO-bytesIO"></div>
+
+### StringIO与BytesIO
+- 用StringIO()去初始化的时候，其指针是指向0的位置；而如果是用write的方法的时候，其指针则是会移动到后面的
+- tell 方法获取当前文件读取指针的位置
+- seek 方法，用于移动文件读写指针到指定位置,有两个参数，第一个offset: 偏移量，需要向前或向后的字节数，正为向后，负为向前；第二个whence: 可选值，默认为0，表示文件开头，1表示相对于当前的位置，2表示文件末尾
+-  用seek方法时，需注意，如果你打开的文件没有用'b'的方式打开，则offset无法使用负值
+```python
+from io import StringIO, BytesIO
+
+s = StringIO('12345')
+print(s.tell())
+print(s.getvalue())
+s.write('abc')
+print(s.getvalue())
+print(s.tell())
+s.write('defg')
+print(s.getvalue())
+s.seek(0, 0)
+print(s.read())
+
+b = BytesIO();
+b.write('中文'.encode('utf-8'))
+print(b.getvalue())
+```
