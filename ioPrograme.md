@@ -2,6 +2,8 @@
 
 - [文件读写](#file-read-write)
 - [StringIO与BytesIO](#stringIO-bytesIO)
+- [操作文件和目录](#file-diretory)
+- [序列化](#serialization)
 
 <div id="file-read-write"></div>
 
@@ -55,4 +57,64 @@ print(s.read())
 b = BytesIO();
 b.write('中文'.encode('utf-8'))
 print(b.getvalue())
+```
+
+<div id="file-diretory"></div>
+
+### 操作文件和目录
+- 环境变量: environ
+- 操作文件和目录
+    - os与os.path模块
+    - shutil模块
+```python
+# print(os.environ)
+# print(os.environ.get('path'))
+print([x for x in os.listdir() if os.path.isfile(x) and os.path.splitext(x)[1] == '.py'])
+print(os.path.abspath('.'))
+print(os.path.join('home', 'heyefu', 'programe'))
+# os.mkdir('test')
+# os.rmdir('test')
+print(os.path.split(os.path.abspath('.')))
+os.rename('miku_1.jpg', 'miku_2.jpg')
+os.remove('miku_2.jpg')
+shutil.copyfile('miku.jpg', 'miku_3.jpg')
+```
+
+<div id="serialization"></div>
+
+### 序列化
+- 把变量从内存中变成可存储或传输的过程称之为序列化
+- 反序列化
+- pickle模块
+- json模块
+```python
+with open('test.json', 'w') as f:
+    # print(json.dumps(d))
+    json.dump(d, f)
+
+with open('test.json') as f:
+    js = json.load(f)
+
+print(js)
+print(js['age'])
+
+
+def studentDict(std):
+    return {
+        'name': std.name,
+        'score': std._Student__score,
+    }
+
+
+s = Student('Jeck', 100)
+s_json = json.dumps(s, default=studentDict)
+print(s_json)
+
+
+def dictStudent(dic):
+    return Student(dic['name'], dic['score'])
+
+
+s_s = json.loads(s_json, object_hook=dictStudent)
+s_s.print_score()
 ```
