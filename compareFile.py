@@ -41,3 +41,25 @@ print(len(file_list_installed))
 print(len(file_list))
 print(index)
 print(index_1)
+
+print('------------')
+
+with open('c:/Users/heyefu/Desktop/test.json') as f:
+    compent = f.read()
+
+reg = '"([0-9]*)"\n\t\t{'
+result = re.findall(reg, compent)
+print(len(result))
+result = list(set(result))
+print(len(result))
+
+print('----------')
+
+for file in result:
+    if file not in file_list_installed:
+        print(file)
+
+
+# result_replace, number = re.subn(reg, '":"', compent)
+# with open('c:/Users/heyefu/Desktop/test_1.json', 'w') as f:
+#     f.write(result_replace)
