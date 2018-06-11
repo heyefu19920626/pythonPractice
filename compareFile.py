@@ -44,7 +44,7 @@ print(index_1)
 
 print('------------')
 
-with open('c:/Users/heyefu/Desktop/test.json') as f:
+with open('E:/steam-down/steamapps/workshop/appworkshop_431960.acf') as f:
     compent = f.read()
 
 reg = '"([0-9]*)"\n\t\t{'
