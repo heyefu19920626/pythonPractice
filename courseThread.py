@@ -6,6 +6,11 @@ import time
 import random
 import subprocess
 import sys
+import threading
+
+
+balance = 0
+lock = threading.Lock()
 
 
 def run_proc(name):
@@ -27,11 +32,39 @@ def write(q):
         q.put(value)
         time.sleep(random.random() * 3)
 
+
 def read(q):
     print('Process to read: %s' % os.getpid())
     while True:
         value = q.get(True)
         print('Get %s from queue.' % value)
+
+
+def loop():
+    print('thread %s is running...' % threading.current_thread().name)
+    n = 0
+    while n < 5:
+        print('thread %s >>> %d' % (threading.current_thread().name, n))
+        time.sleep(1)
+        n += 1
+    print('thread %s is ended.' % threading.current_thread().name)
+
+
+def change_i(n):
+    global balance
+    balance += n
+    balance -= n
+
+
+def run_thread(n):
+    for i in range(10000000):
+        # 获取锁
+        lock.acquire()
+        try:
+            change_i(n)
+        finally:
+            # 释放锁
+            lock.release()
 
 
 if __name__ == '__main__':
@@ -58,7 +91,8 @@ if __name__ == '__main__':
     print('Exit code:', r)
 
     print('$ nslookup')
-    p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, err = p.communicate(b'set q=mx\npython.org\nexit\n')
     print(output.decode('gbk'))
     print('Exit code:', p.returncode)
@@ -73,3 +107,19 @@ if __name__ == '__main__':
     pw.join()
     # pr 进程是死循环，无法等待期结束，只能强行终止
     pr.terminate()
+
+    # 多线程
+    print('thread %s is running...' % threading.current_thread().name)
+    t = threading.Thread(target=loop, name='子线程')
+    t.start()
+    t.join()
+    print('thread %s is ended.' % threading.current_thread().name)
+
+    # Lock
+    t1 = threading.Thread(target=run_thread, args=(5,))
+    t2 = threading.Thread(target=run_thread, args=(8,))
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+    print(balance)
