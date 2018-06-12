@@ -60,6 +60,20 @@ for file in result:
         print(file)
 
 
+
 # result_replace, number = re.subn(reg, '":"', compent)
 # with open('c:/Users/heyefu/Desktop/test_1.json', 'w') as f:
 #     f.write(result_replace)
+
+with open('subcription.json', encoding='utf-8') as f:
+    subcription = json.loads(f.read())
+
+print(len(subcription))
+
+inex = 0
+for file in subcription:
+    if file not in file_list_installed:
+        print(file, subcription[file])
+        index += 1
+
+print(index)
