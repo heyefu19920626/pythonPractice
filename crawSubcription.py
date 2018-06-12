@@ -26,25 +26,27 @@ headers = {
 
 
 page = 1
-subcription = []
+subcription = {}
 while page < 17:
     url = 'https://steamcommunity.com/profiles/76561198132831432/myworkshopfiles/?appid=431960&sort=score&browsefilter=mysubscriptions&view=imagewall&p=' + \
         str(page) + '&numperpage=30'
-    # url = 'https://steamcommunity.com/'
     print('正在抓取第' + str(page) + '页订阅数据')
     response = requests.get(url, cookies=cookies, headers=headers)
     response.encoding = 'utf-8'
-    print(response)
     result = response.text
-    with open('steam.html', 'w', encoding='utf-8') as f:
-        f.write(result)
-    reg = r'id=(.*?)"><div class="workshopItemPreviewHolder">'
-    result = re.findall(reg, result)
-    print(len(result))
-    print(result)
-    subcription += result
+    # with open('steam.html', 'w', encoding='utf-8') as f:
+    #     f.write(result)
+    reg_id = r'id=(.*?)"><div class="workshopItemPreviewHolder">'
+    reg_tile = r'<div class="workshopItemTitle">(.*?)</div>'
+    subcription_id = re.findall(reg_id, result)
+    subcription_title =re.findall(reg_tile, result)
+    i = 0
+    for id in subcription_id:
+        subcription[id] = subcription_title[i * 2]
+        i += 1
+    print(subcription_title)
     page += 1
 
 print(len(subcription))
-with open('subcription.json', 'w') as f:
-    json.dump(subcription, f)
+with open('subcription.json', 'w', encoding='utf-8') as f:
+    json.dump(subcription, f, ensure_ascii=False)
