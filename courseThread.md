@@ -1,6 +1,7 @@
 # 进程和线程
 
 - [多进程](#multiprocess)
+- [多线程](#multithread)
 
 - 多任务实现的三种方式
     - 多进程
@@ -55,3 +56,48 @@ print('All subprocess done.')
 
 - 子进程
 - subprocess模块
+    + Popen()类
+    + call()方法
+    + communicate()子进程的输入
+```python
+print('$ nslookup')
+p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+output, err = p.communicate(b'set q=mx\npython.org\nexit\n')
+print(output.decode('gbk'))
+print('Exit code:', p.returncode)
+```
+
+- 进程间通信
+- 通过Queue, Pipes等方式实现
+```python
+def write(q):
+    print('Process to write: %s' % os.getpid())
+    for value in ['a', 'b', 'c']:
+        print('Put %s to  queue...' % value)
+        q.put(value)
+        time.sleep(random.random() * 3)
+
+def read(q):
+    print('Process to read: %s' % os.getpid())
+    while True:
+        value = q.get(True)
+        print('Get %s from queue.' % value)
+
+# 进程间通信
+q = Queue()
+pw = Process(target=write, args=(q,))
+pr = Process(target=read, args=(q,))
+
+pw.start()
+pr.start()
+pw.join()
+# pr 进程是死循环，无法等待期结束，只能强行终止
+pr.terminate()
+```
+
+<div id="multithread"></div>
+
+### 多线程
+- 进程是由若干线程组成的，一个进程至少有一个线程
+- \_thread与threading模块
+- 启动一个线程就是把一个函数传入并创建Thread实例，然后调用start()开始执行
