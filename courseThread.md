@@ -3,6 +3,9 @@
 - [多进程](#multiprocess)
 - [多线程](#multithread)
 - [ThreadLocal](#threadlocal)
+- [进程VS线程](#process-thread)
+- [分布式进程](#distributed-process)
+
 
 - 多任务实现的三种方式
     - 多进程
@@ -185,3 +188,25 @@ t4.start()
 t3.join()
 t4.join()
 ```
+
+<div id="process-thread"></div>
+
+### 进程VS线程
+- Master-Worker
+- 多进程
+    - 多进程模式最大的优点就是稳定性高，因为一个子进程崩溃了，不会影响主进程和其他子进程(主进程例外，但主进程只负责分配任务，概率低)
+    - 缺点是创建进程的代价大，在Unix/Linux系统下，用fork调用还行，在Windows下创建进程开销巨大。
+    - 操作系统能同时运行的进程数也是有限的
+- 线程切换
+- 计算密集型与IO密集型
+- 异步IO
+    - 对应到Python语言，单线程的异步编程模型称为协程
+
+<div id="distributed-process"></div>
+
+### 分布式进程
+- multiprocessing模块不但支持多进程，其中managers子模块还支持把多进程分布到多台机器上。一个服务进程可以作为调度者，将任务分布到其他多个进程中，依靠网络通信
+- 通过managers模块把Queue通过网络暴露出去，就可以让其他机器的进程访问Queue了
+- Queue之所以能通过网络访问，就是通过QueueManager实现的。由于QueueManager管理的不止一个Queue，所以，要给每个Queue的网络调用接口起个名字，比如get_task_queue
+- authkey有什么用？这是为了保证两台机器正常通信，不被其他机器恶意干扰。如果task_worker.py的authkey和task_master.py的authkey不一致，肯定连接不上
+- Queue的作用是用来传递任务和接收结果，每个任务的描述数据量要尽量小
