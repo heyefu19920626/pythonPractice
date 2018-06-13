@@ -11,6 +11,7 @@ import threading
 
 balance = 0
 lock = threading.Lock()
+local_var = threading.local()
 
 
 def run_proc(name):
@@ -65,6 +66,16 @@ def run_thread(n):
         finally:
             # 释放锁
             lock.release()
+
+
+def process_student():
+    std = local_var.student
+    print('Hello %s (in %s)' % (std, threading.current_thread().name))
+
+
+def process_thread(name):
+    local_var.student = name
+    process_student()
 
 
 if __name__ == '__main__':
@@ -123,3 +134,11 @@ if __name__ == '__main__':
     t1.join()
     t2.join()
     print(balance)
+
+    # ThreadLocal
+    t3 = threading.Thread(target=process_thread, args=('Bob',), name='Thread-Bob')
+    t4 = threading.Thread(target=process_thread, args=('Tom',), name='Thread-Tom')
+    t3.start()
+    t4.start()
+    t3.join()
+    t4.join()
