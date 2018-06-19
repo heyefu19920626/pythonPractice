@@ -1,6 +1,8 @@
 import datetime
 from datetime import timedelta
 from collections import namedtuple, deque, defaultdict, OrderedDict, Counter
+import base64
+import re
 
 
 # datetime
@@ -85,3 +87,31 @@ last['c'] = 3
 print(last)
 last['b'] = 4
 print(last)
+
+
+# base64
+str_encode = base64.b64encode(b'abcd')
+print(str_encode)
+str_decode = base64.b64decode(str_encode)
+print(str_decode)
+
+print(b'abcd')
+
+
+def safe_base64_decode(s):
+    if isinstance(s, str):
+        length = len(s)
+        if not length % 4 == 0:
+            for i in range(4 - length % 4):
+                s += '='
+        new_str = base64.b64decode(s)
+        return new_str
+    elif isinstance(s, bytes):
+        s += (4 - len(s) % 4) * b'='
+        return base64.b64decode(s)
+
+
+assert b'abcd' == safe_base64_decode(
+    b'YWJjZA=='), safe_base64_decode('YWJjZA==')
+assert b'abcd' == safe_base64_decode(b'YWJjZA'), safe_base64_decode('YWJjZA')
+print('ok')

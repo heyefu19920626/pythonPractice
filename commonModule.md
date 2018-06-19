@@ -114,3 +114,37 @@ print(last)
 <div id="base64"></div>
 
 ### base64
+
+- base64原理
+    - 准备一个包含64个字符的数组
+    - 对二进制数据进行处理，每3个字节一组，一共是3x8=24bit，划为4组，每组正好6个bit
+    - 得到4个数字作为索引，然后查表，获得相应的4个字符，就是编码后的字符串
+    - 如果要编码的二进制数据不是3的倍数，用\x00字节在末尾补足后，再在编码的末尾加上1个或2个=号，表示补了多少字节，解码的时候，会自动去掉
+```python
+# base64
+str_encode = base64.b64encode(b'abcd')
+print(str_encode)
+str_decode = base64.b64decode(str_encode)
+print(str_decode)
+
+print(b'abcd')
+
+
+def safe_base64_decode(s):
+    if isinstance(s, str):
+        length = len(s)
+        if not length % 4 == 0:
+            for i in range(4 - length % 4):
+                s += '='
+        new_str = base64.b64decode(s)
+        return new_str
+    elif isinstance(s, bytes):
+        s += (4 - len(s) % 4) * b'='
+        return base64.b64decode(s)
+
+
+assert b'abcd' == safe_base64_decode(
+    b'YWJjZA=='), safe_base64_decode('YWJjZA==')
+assert b'abcd' == safe_base64_decode(b'YWJjZA'), safe_base64_decode('YWJjZA')
+print('ok')
+```
