@@ -3,6 +3,7 @@ from datetime import timedelta
 from collections import namedtuple, deque, defaultdict, OrderedDict, Counter
 import base64
 import re
+import hashlib
 
 
 # datetime
@@ -115,3 +116,14 @@ assert b'abcd' == safe_base64_decode(
     b'YWJjZA=='), safe_base64_decode('YWJjZA==')
 assert b'abcd' == safe_base64_decode(b'YWJjZA'), safe_base64_decode('YWJjZA')
 print('ok')
+
+print(2 << 3)
+
+md5 = hashlib.md5()
+md5.update('hello workd'.encode('utf-8'))
+print(md5.hexdigest())
+md5.update('hello world'.encode('utf-8'))
+print(md5.hexdigest())
+md5_1 = hashlib.md5()
+md5_1.update('hello workdhello world'.encode('gbk'))
+print(md5_1.hexdigest())

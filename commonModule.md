@@ -3,6 +3,8 @@
 - [datetime](#datetime)
 - [collections](#collections)
 - [base64](#base64)
+- [struct](#struct)
+- [hashlib](#hashlib)
 
 <div id="datetime"></div>
 
@@ -147,4 +149,27 @@ assert b'abcd' == safe_base64_decode(
     b'YWJjZA=='), safe_base64_decode('YWJjZA==')
 assert b'abcd' == safe_base64_decode(b'YWJjZA'), safe_base64_decode('YWJjZA')
 print('ok')
+```
+
+<div id="struct"></div>
+
+### struct
+- 用来解决bytes和其他二进制数据类型的转换
+
+<dir id="hashlib"></dir>
+
+### hashlib
+- 摘要算法
+    - 摘要算法又称哈希算法、散列算法。它通过一个函数，把任意长度的数据转换为一个长度固定的数据串（通常用16进制的字符串表示）
+    - 防篡改
+- md5,sha1,sha256,sha512
+```python
+md5 = hashlib.md5()
+md5.update('hello workd'.encode('utf-8'))
+print(md5.hexdigest())
+md5.update('hello world'.encode('utf-8'))
+print(md5.hexdigest())
+md5_1 = hashlib.md5()
+md5_1.update('hello workdhello world'.encode('gbk'))
+print(md5_1.hexdigest())
 ```
