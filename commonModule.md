@@ -5,6 +5,7 @@
 - [base64](#base64)
 - [struct](#struct)
 - [hashlib](#hashlib)
+- [hmac](#hmac)
 
 <div id="datetime"></div>
 
@@ -156,7 +157,7 @@ print('ok')
 ### struct
 - 用来解决bytes和其他二进制数据类型的转换
 
-<dir id="hashlib"></dir>
+<div id="hashlib"></div>
 
 ### hashlib
 - 摘要算法
@@ -173,3 +174,10 @@ md5_1 = hashlib.md5()
 md5_1.update('hello workdhello world'.encode('gbk'))
 print(md5_1.hexdigest())
 ```
+
+<div id="hmac"></div>
+
+### hmac
+- Hmac算法：Keyed-Hashing for Message Authentication
+    - 通过一个标准算法，在计算哈希的过程中，把key混入计算过程中
+    - hamc实现带key的哈希
