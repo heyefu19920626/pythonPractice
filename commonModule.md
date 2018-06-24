@@ -6,6 +6,7 @@
 - [struct](#struct)
 - [hashlib](#hashlib)
 - [hmac](#hmac)
+- [itertools](#itertools)
 
 <div id="datetime"></div>
 
@@ -181,3 +182,43 @@ print(md5_1.hexdigest())
 - Hmac算法：Keyed-Hashing for Message Authentication
     - 通过一个标准算法，在计算哈希的过程中，把key混入计算过程中
     - hamc实现带key的哈希
+
+
+<div id="itertools"></div>
+
+### itertools
+- itertools提供了非常有用的用于操作迭代对象的函数
+- count()会创建一个无限的迭代器
+- cycle()会把传入的一个序列无限重复下去
+- repeat()负责把一个元素无限重复下去，不过如果提供第二个参数就可以限定重复次数
+- 无限序列只有在for迭代时才会无限地迭代下去，如果只是创建了一个迭代对象，它不会事先把无限个元素生成出来，事实上也不可能在内存中创建无限多个元素
+- 可以通过takewhile()等函数根据条件判断来截取出一个有限的序列
+- chain()可以把一组迭代对象串联起来，形成一个更大的迭代器
+- groupby()把迭代器中相邻的重复元素挑出来放在一起
+- itertools模块提供的全部是处理迭代功能的函数，它们的返回值不是list，而是Iterator，只有用for循环迭代的时候才真正计算
+```python
+natuals = itertools.count(1)
+ns = itertools.takewhile(lambda x: x <= 10, natuals)
+print(list(ns))
+for key, group in itertools.groupby('AaaBBbcCAAa', lambda c: c.upper()):
+    print(key, list(group))
+
+
+def pi(n):
+    series = itertools.count(1, 2)
+    series = itertools.takewhile(lambda x: x <= 2 * n - 1, series)
+    series = map(lambda x: 4 / x, series)
+    series = list(series)
+    return reduce(lambda x, y: x + y, [(-1) ** i * series[i] for i in range(len(series))])
+
+
+print(pi(10))
+print(pi(100))
+print(pi(1000))
+print(pi(10000))
+assert 3.04 < pi(10) < 3.05
+assert 3.13 < pi(100) < 3.14
+assert 3.140 < pi(1000) < 3.141
+assert 3.1414 < pi(10000) < 3.1415
+print('ok')
+```
