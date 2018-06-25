@@ -6,6 +6,8 @@ import re
 import hashlib
 import itertools
 from functools import reduce
+from contextlib import contextmanager, closing
+from urllib.request import urlopen
 
 
 # datetime
@@ -121,6 +123,9 @@ print('ok')
 
 print(2 << 3)
 
+
+# hashlib
+
 md5 = hashlib.md5()
 md5.update('hello workd'.encode('utf-8'))
 print(md5.hexdigest())
@@ -155,6 +160,8 @@ assert not login('alice', 'Alice2008')
 print('ok')
 
 
+# itertools
+
 natuals = itertools.count(1)
 ns = itertools.takewhile(lambda x: x <= 10, natuals)
 print(list(ns))
@@ -179,3 +186,65 @@ assert 3.13 < pi(100) < 3.14
 assert 3.140 < pi(1000) < 3.141
 assert 3.1414 < pi(10000) < 3.1415
 print('ok')
+
+# contextlib
+
+
+class Query(object):
+    def __init__(self, name):
+        self.name = name
+
+    # def __enter__(self):
+    #     print('Begain')
+    #     return self
+
+    # # exit 需要四个参数
+    # def __exit__(self, exc_type, exc_value, traceback):
+    #     if exc_type:
+    #         print('Error')
+    #     else:
+    #         print('End')
+
+    def query(self):
+        print('Query info about %s...' % self.name)
+
+
+@contextmanager
+def create_Query(name):
+    print('Begain')
+    q = Query(name)
+    yield q
+    print('End')
+
+
+# with Query('test_Query') as q:
+#     q.query()
+with create_Query('Bob') as q:
+    q.query()
+
+
+@contextmanager
+def tag(name):
+    print('<%s>' % name)
+    yield
+    print('<%s>' % name)
+
+
+with tag('h1'):
+    print('Hello')
+    print('World')
+
+
+@contextmanager
+def closing_define(thing):
+    try:
+        yield thing
+    finally:
+        thing.close()
+
+
+
+# with closing(urlopen('https://www.python.org')) as page:
+with closing_define(urlopen('http://www.heyefu.shop')) as page:
+    for line in page:
+        print(line)

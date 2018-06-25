@@ -7,6 +7,8 @@
 - [hashlib](#hashlib)
 - [hmac](#hmac)
 - [itertools](#itertools)
+- [contextlib](#contextlib)
+- [urllib](#urllib)
 
 <div id="datetime"></div>
 
@@ -222,3 +224,81 @@ assert 3.140 < pi(1000) < 3.141
 assert 3.1414 < pi(10000) < 3.1415
 print('ok')
 ```
+
+
+<div id="contextlib"></div>
+
+### contextlib
+- 任何对象，只要正确实现了上下文管理，就可以用于with语句
+- 实现上下文管理是通过\_\_enter\_\_和\_\_exit\_\_这两个方法实现的
+- @contextmanager
+    - @contextmanager这个decorator接受一个generator，用yield语句把with ... as var把变量输出出去，然后，with语句就可以正常地工作了
+    - 在某段代码执行前后自动执行特定代码
+    - with语句首先执行yield之前的语句，yield调用会执行with语句内部的所有语句,最后执行yield之后的语句
+- @closing可以把没有上下文的对象变为上下文对象
+    - closing也是一个经过@contextmanager装饰的generator
+```python
+class Query(object):
+    def __init__(self, name):
+        self.name = name
+
+    # def __enter__(self):
+    #     print('Begain')
+    #     return self
+
+    # # exit 需要四个参数
+    # def __exit__(self, exc_type, exc_value, traceback):
+    #     if exc_type:
+    #         print('Error')
+    #     else:
+    #         print('End')
+
+    def query(self):
+        print('Query info about %s...' % self.name)
+
+
+@contextmanager
+def create_Query(name):
+    print('Begain')
+    q = Query(name)
+    yield q
+    print('End')
+
+
+# with Query('test_Query') as q:
+#     q.query()
+with create_Query('Bob') as q:
+    q.query()
+
+
+@contextmanager
+def tag(name):
+    print('<%s>' % name)
+    yield
+    print('<%s>' % name)
+
+
+with tag('h1'):
+    print('Hello')
+    print('World')
+
+
+@contextmanager
+def closing_define(thing):
+    try:
+        yield thing
+    finally:
+        thing.close()
+
+
+
+# with closing(urlopen('https://www.python.org')) as page:
+with closing_define(urlopen('http://www.heyefu.shop')) as page:
+    for line in page:
+        print(line)
+```
+
+
+<div id="urllib"></div>
+
+### urllib
