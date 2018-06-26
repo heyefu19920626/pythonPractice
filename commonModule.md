@@ -302,3 +302,11 @@ with closing_define(urlopen('http://www.heyefu.shop')) as page:
 <div id="urllib"></div>
 
 ### urllib
+- urllib提供了一系列用于操作URL的功能
+- Get
+    - request.urlopen()
+    - urllib的request模块可以非常方便地抓取URL内容，也就是发送一个GET请求到指定的页面，然后返回HTTP的响应
+- Post
+    - 如果要以POST发送一个请求，只需要把参数data以bytes形式传入
+- Handler
+    - 更复杂的情况，如代理等

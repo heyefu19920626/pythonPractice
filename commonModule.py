@@ -245,6 +245,6 @@ def closing_define(thing):
 
 
 # with closing(urlopen('https://www.python.org')) as page:
-with closing_define(urlopen('http://www.heyefu.shop')) as page:
-    for line in page:
-        print(line)
+# with closing_define(urlopen('http://www.heyefu.shop')) as page:
+#     for line in page:
+#         print(line)
