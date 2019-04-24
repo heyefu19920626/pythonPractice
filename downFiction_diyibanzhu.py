@@ -3,6 +3,8 @@ import json
 import re
 
 
+BASE_DIR = 'E:\\fiction\\'
+
 
 def getHtmlByUrl(url, encode='gbk'):
     """根据url获取html内容"""
@@ -70,7 +72,8 @@ def getContent(pages, base, name, chapter):
         # print('Over: ' + base + page)
     print('Over: ' + chapter)
 
-book_url = "https://www.diyibanzhu4.com/9/9936/"
+
+book_url = "https://www.diyibanzhu4.com/8/8178/"
 catalog_base_url = book_url
 prefix = 'https://www.diyibanzhu4.com'
 html = getHtmlByUrl(book_url)
@@ -81,10 +84,10 @@ while next_page != "":
     print("正在抓取第%d页" % page)
     html = getHtmlByUrl(book_url)
     chapter_ul = getChapterUl(html)
-    chapters = getChapter(chapter_ul, name)
+    chapters = getChapter(chapter_ul,BASE_DIR + 'txt\\' + name)
     for chapter in chapters:
         content_pages = getContentPage(prefix + chapter[0])
-        getContent(content_pages, catalog_base_url, name, chapter[1])
+        getContent(content_pages, catalog_base_url,BASE_DIR + 'txt\\' + name, chapter[1])
     next_page = getNextPageUrl(html, book_url)
     print("抓取完成第%d页" % page)
     if next_page != "":
