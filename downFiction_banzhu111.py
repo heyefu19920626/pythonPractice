@@ -1,19 +1,34 @@
 import requests
 import json
 import re
+from downFiction_diyibanzhu import getHtmlByUrl as getHtmlByUrl
+from downFiction_diyibanzhu import getName as getName
+from downFiction_diyibanzhu import deleteFile as deleteFile
 
-book_url = "http://www.banzhu111.org/shu/1/1620/"
+def getAuthor(html):
+    regex_author = '<h1>.*?</h1>.*?<p>.*?：(.*?)</p>'
+    author = re.findall(regex_author, html, re.S)
+    return author[0]
+
+BASE_DIR = 'E:\\fiction\\txt\\'
+book_url = "http://www.banzhu111.org/shu/2/2805/"
 prefix = 'http://www.banzhu111.org'
 
-response = requests.get(book_url)
-response.encoding = 'gbk'
-html = response.text
-# with open("banzhu111.html", "w", encoding="utf-8") as f:
-#     f.write(html)
+html = getHtmlByUrl(book_url)
+print('book_url = %s' % book_url)
+name = BASE_DIR + '《' + getName(html) + '》'
+author = getAuthor(html)
+print(author)
+
+catalog_file = name +  '作者：' + author + '_catalog.txt'
+content_file = name +  '作者：' + author + '.txt'
+deleteFile(catalog_file)
+deleteFile(content_file)
+
 
 regex_catalog = '<dd><a\s+?href=["|\'](.*?)["|\']>(.*?)</a></dd>'
 catalogs = re.findall(regex_catalog, html)
-with open('banzhu111_catalog.txt', 'w', encoding='utf-8') as f:
+with open(catalog_file, 'w', encoding='utf-8') as f:
     for catalog in catalogs:
         f.write(catalog[1])
         f.write('\n')
@@ -24,8 +39,6 @@ for catalog in catalogs:
     response_chaper = requests.get(catalog_url)
     response_chaper.encoding = 'gbk'
     content = response_chaper.text
-    with open('chaper.html', 'w', encoding='utf-8') as f:
-        f.write(content)
     regex_chaper = '<div id="content">(.*?)</div>'
     content = re.findall(regex_chaper,content, re.S)
     if len(content) > 0:
@@ -33,7 +46,7 @@ for catalog in catalogs:
         content = content.replace('&nbsp;', '')
         content = content.replace('\r', '')
         content = content.replace('第\\d章', '')
-        with open('banzhu111_content.txt', 'a', encoding='utf-8') as f:
+        with open(content_file, 'a', encoding='utf-8') as f:
             f.write(catalog_text + '\n')
             f.write(content + '\r\n')
         print('Over:' + catalog_text)

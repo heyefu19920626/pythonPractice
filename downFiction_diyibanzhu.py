@@ -89,40 +89,45 @@ def getContent(pages, base, name, chapter):
             print('-----------抓取内容出错-----------')
     print('Over: ' + chapter)
 
+def deleteFile(path):
+    if os.path.exists(path):
+        os.remove(path)
+        print('delete: ' + path)
 
-book_url = "https://www.diyibanzhu4.com/3/3550/"
-catalog_base_url = book_url
-prefix = 'https://www.diyibanzhu4.com'
-html = getHtmlByUrl(book_url)
-name = getName(html)
-author = getAuthor(html)
-page = 1
-local_name = '《' + name + '》作者：' + author
-next_page = getNextPageUrl(html, book_url)
-catalog_file = BASE_DIR + 'txt\\' + name + '_catalog.txt'
-content_file = BASE_DIR + 'txt\\' + local_name + '.txt'
-if os.path.exists(catalog_file):
-    os.remove(catalog_file)
-    print('delete:' + catalog_file)
-if os.path.exists(content_file):
-    os.remove(content_file)
-    print('delete:' + content_file)
-
-while next_page != "":
-    print("正在抓取第%d页" % page)
+def main():
+    book_url = "https://www.diyibanzhu4.com/3/3550/"
+    catalog_base_url = book_url
+    prefix = 'https://www.diyibanzhu4.com'
     html = getHtmlByUrl(book_url)
-    chapter_ul = getChapterUl(html)
-    chapters = getChapter(chapter_ul, catalog_file)
-    for chapter in chapters:
-        content_pages = getContentPage(prefix + chapter[0])
-        getContent(content_pages, catalog_base_url, content_file, chapter[1])
+    name = getName(html)
+    author = getAuthor(html)
+    page = 1
+    local_name = '《' + name + '》作者：' + author
     next_page = getNextPageUrl(html, book_url)
-    print("抓取完成第%d页" % page)
-    if next_page != "":
-        book_url = prefix + next_page
-        page += 1
-    else:
-        print("Over")
-        break
 
-print('------------Over----------')
+    catalog_file = BASE_DIR + 'txt\\' + name + '_catalog.txt'
+    content_file = BASE_DIR + 'txt\\' + local_name + '.txt'
+    deleteFile(catalog_file)
+    deleteFile(content_file)
+
+    while next_page != "":
+        print("正在抓取第%d页" % page)
+        html = getHtmlByUrl(book_url)
+        chapter_ul = getChapterUl(html)
+        chapters = getChapter(chapter_ul, catalog_file)
+        for chapter in chapters:
+            content_pages = getContentPage(prefix + chapter[0])
+            getContent(content_pages, catalog_base_url, content_file, chapter[1])
+        next_page = getNextPageUrl(html, book_url)
+        print("抓取完成第%d页" % page)
+        if next_page != "":
+            book_url = prefix + next_page
+            page += 1
+        else:
+            print("Over")
+            break
+
+    print('------------Over----------')
+
+if __name__ == '__main__':
+    main()
