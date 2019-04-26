@@ -50,6 +50,12 @@ def getNextPageUrl(html, presentUrl):
     else:
         return next_page[0]
 
+def getPage(html):
+    """获取总页数"""
+    regex_page = '第(\d+)/(\d+)页'
+    page = re.findall(regex_page, html)
+    return int(page[0][0]), int(page[0][1])
+
 def getContentPage(content_url):
     """获取章节内的页数地址 """
     html = getHtmlByUrl(content_url)
@@ -60,6 +66,13 @@ def getContentPage(content_url):
     regex_page = 'href="(.*?)"'
     page = re.findall(regex_page, pages[0])
     return page
+
+def formatterContent(content):
+    """格式化内容"""
+    content = content.replace('<br />', '\n')
+    content = content.replace('&nbsp;', '')
+    content = content.replace('\r', '')
+    return content
 
 def getContent(pages, base, name, chapter):
     """获取章节内容并写入文件
@@ -79,10 +92,7 @@ def getContent(pages, base, name, chapter):
         regex_content = '<div class="page-content font-large">\n<p>(.*?)</p>'
         content = re.findall(regex_content, html, re.S)
         if len(content) > 0:
-            content = content[0].replace('<br />', '')
-            content = content.replace('&nbsp;', '')
-            content = content.replace('\r', '')
-            content = content.replace("更'多'精'彩'小'说'尽'在'ｗ'ｗ'ｗ．０'１'Ｂ'ｚ．ｎ'Ｅ'ｔ第'一'版'主'小'说'站", '')
+            content = formatterContent(content[0])
             with open(name, 'a', encoding='utf-8') as f:
                 f.write(content + '\r\n')
         else:
@@ -94,8 +104,8 @@ def deleteFile(path):
         os.remove(path)
         print('delete: ' + path)
 
-def main():
-    book_url = "https://www.diyibanzhu4.com/3/3550/"
+def main(url):
+    book_url =  url
     catalog_base_url = book_url
     prefix = 'https://www.diyibanzhu4.com'
     html = getHtmlByUrl(book_url)
@@ -110,7 +120,9 @@ def main():
     deleteFile(catalog_file)
     deleteFile(content_file)
 
-    while next_page != "":
+    pre_page, total_page = getPage(html)
+
+    while pre_page <= total_page:
         print("正在抓取第%d页" % page)
         html = getHtmlByUrl(book_url)
         chapter_ul = getChapterUl(html)
@@ -126,8 +138,15 @@ def main():
         else:
             print("Over")
             break
+        pre_page += 1
 
     print('------------Over----------')
 
 if __name__ == '__main__':
-    main()
+    main("https://www.diyibanzhu4.com/5/5445/")
+    # book_url = "https://www.diyibanzhu4.com/1/1874/"
+    # catalog_base_url = book_url
+    # prefix = 'https://www.diyibanzhu4.com'
+    # html = getHtmlByUrl(book_url)
+    # pre, total = getPage(html)
+    # print(pre, total)
