@@ -2,6 +2,18 @@ import requests
 import os
 import re
 
+def getHtmlByUrlAndPro(url, encode='gbk'):
+    """使用代理访问, 需要安装pip install -U requests[sock]"""
+    proxies = {
+    'https:': 'https://127.0.0.1:1080',
+    'http:': 'http://127.0.0.1:1080'
+    }
+    print(proxies)
+    print(url)
+    response = requests.get(url, proxies=proxies, timeout=5)
+    response.encoding = encode
+    return response.text
+
 
 def getHtmlByUrl(url, encode='gbk'):
     """根据url获取html内容"""
