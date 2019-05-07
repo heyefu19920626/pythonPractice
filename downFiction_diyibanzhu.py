@@ -143,7 +143,7 @@ def main(url):
     print('------------Over----------')
 
 if __name__ == '__main__':
-    main("https://www.diyibanzhu4.com/5/5445/")
+    main("https://www.diyibanzhu4.com/11/11441/")
     # book_url = "https://www.diyibanzhu4.com/1/1874/"
     # catalog_base_url = book_url
     # prefix = 'https://www.diyibanzhu4.com'
