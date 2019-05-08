@@ -60,7 +60,7 @@ def downCartoon(url):
         pic_urls = getPicUrl(html)
         suffix = pic_urls[0].rsplit('.', 1)[1]
         for pic_url in pic_urls:
-            print('下载%d中...%s' % num, pic_url)
+            print('下载%d中...%s' % (num, pic_url))
             response = requests.get(pic_url)
             data = response.content
             saveFile(save_path + getPicName(num, total_num) + '.' + suffix, data)
@@ -73,9 +73,9 @@ def downCartoon(url):
 
 
 # url = 'http://www.177pic.info/html/2015/06/60390.html'
-url = 'http://www.177pic.info/html/2019/05/2869138.html'
-# url = 'http://www.177pic.info/html/2019/05/2898524.html'
+# url = 'http://www.177pic.info/html/2019/05/2869138.html'
+url = 'http://www.177pic.info/html/2019/05/2898524.html'
 # html = getHtmlByUrl(url, 'utf-8')
 # print(getNextPage(html))
-# downCartoon(url)
+downCartoon(url)
 # print(getHtmlByUrlAndPro(url))
