@@ -5,6 +5,13 @@ import os
 import re
 import platform
 
+def getBaseDir():
+    """获取下载文件夹路径"""
+    if platform.system() == 'Windows':
+        return 'E:\\down\\'
+    else:
+        return '/home/heyefu/down/'
+
 def getHtmlByUrlAndPro(url, encode='gbk'):
     """使用代理访问, 需要安装pip install -U requests[sock]"""
     proxies = {
@@ -25,6 +32,7 @@ def getFileSeparate():
         return '\\'
     else:
         return '/'
+
 
 
 def getHtmlByUrl(url, encode='gbk'):

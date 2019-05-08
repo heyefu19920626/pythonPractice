@@ -6,7 +6,9 @@ from down_basic import parse as parse
 from down_basic import saveFile as saveFile
 from down_basic import getHtmlByUrlAndPro as getHtmlByUrlAndPro
 from down_basic import getFileSeparate as getFileSeparate
-BASE_DIR = 'E:\\down\\'
+from down_basic import getBaseDir as getBaseDir
+
+BASE_DIR = getBaseDir()
 
 def getName(html):
     """获取漫画名称"""
@@ -49,7 +51,8 @@ def downCartoon(url):
     html = getHtmlByUrl(url, encode='utf-8')
     name = getName(html)
     print('Down:' + name + '......')
-    save_path = BASE_DIR + name + getFileSeparate()
+    save_path = BASE_DIR + 'pic' + getFileSeparate() + name + getFileSeparate()
+    print("存储路径为：%s" % save_path)
     total_num = getPicNum(html)
     print('共%s副图' % total_num)
 
