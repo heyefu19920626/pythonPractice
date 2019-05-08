@@ -1,10 +1,11 @@
+# -*- encding: utf-8 -*-
 import requests
 
 from down_basic import getHtmlByUrl as getHtmlByUrl
 from down_basic import parse as parse
 from down_basic import saveFile as saveFile
 from down_basic import getHtmlByUrlAndPro as getHtmlByUrlAndPro
-
+from down_basic import getFileSeparate as getFileSeparate
 BASE_DIR = 'E:\\down\\'
 
 def getName(html):
@@ -41,12 +42,14 @@ def getPicName(num, total):
     if minus > 0:
         num = '0' * minus + num
         return num
+    else:
+        return num
 
 def downCartoon(url):
     html = getHtmlByUrl(url, encode='utf-8')
     name = getName(html)
     print('Down:' + name + '......')
-    save_path = BASE_DIR + name + '\\'
+    save_path = BASE_DIR + name + getFileSeparate()
     total_num = getPicNum(html)
     print('共%s副图' % total_num)
 
@@ -75,4 +78,4 @@ url = 'http://www.177pic.info/html/2019/05/2869138.html'
 # html = getHtmlByUrl(url, 'utf-8')
 # print(getNextPage(html))
 # downCartoon(url)
-print(getHtmlByUrlAndPro(url))
+# print(getHtmlByUrlAndPro(url))
