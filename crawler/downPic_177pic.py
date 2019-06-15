@@ -1,11 +1,14 @@
+# -*- encding: utf-8 -*-
 import requests
 
 from down_basic import getHtmlByUrl as getHtmlByUrl
 from down_basic import parse as parse
 from down_basic import saveFile as saveFile
 from down_basic import getHtmlByUrlAndPro as getHtmlByUrlAndPro
+from down_basic import getFileSeparate as getFileSeparate
+from down_basic import getBaseDir as getBaseDir
 
-BASE_DIR = 'E:\\down\\'
+BASE_DIR = getBaseDir()
 
 def getName(html):
     """获取漫画名称"""
@@ -41,12 +44,15 @@ def getPicName(num, total):
     if minus > 0:
         num = '0' * minus + num
         return num
+    else:
+        return num
 
 def downCartoon(url):
     html = getHtmlByUrl(url, encode='utf-8')
     name = getName(html)
     print('Down:' + name + '......')
-    save_path = BASE_DIR + name + '\\'
+    save_path = BASE_DIR + 'pic' + getFileSeparate() + name + getFileSeparate()
+    print("存储路径为：%s" % save_path)
     total_num = getPicNum(html)
     print('共%s副图' % total_num)
 
@@ -57,7 +63,7 @@ def downCartoon(url):
         pic_urls = getPicUrl(html)
         suffix = pic_urls[0].rsplit('.', 1)[1]
         for pic_url in pic_urls:
-            print('下载%d中...%s' % num, pic_url)
+            print('下载%d中...%s' % (num, pic_url))
             response = requests.get(pic_url)
             data = response.content
             saveFile(save_path + getPicName(num, total_num) + '.' + suffix, data)
@@ -70,9 +76,9 @@ def downCartoon(url):
 
 
 # url = 'http://www.177pic.info/html/2015/06/60390.html'
-url = 'http://www.177pic.info/html/2019/05/2869138.html'
-# url = 'http://www.177pic.info/html/2019/05/2898524.html'
+# url = 'http://www.177pic.info/html/2019/05/2869138.html'
+url = 'http://www.177pic.info/html/2019/05/2898524.html'
 # html = getHtmlByUrl(url, 'utf-8')
 # print(getNextPage(html))
-# downCartoon(url)
-print(getHtmlByUrlAndPro(url))
+downCartoon(url)
+# print(getHtmlByUrlAndPro(url))

@@ -1,6 +1,16 @@
+# -*- encding: utf-8 -*-
+
 import requests
 import os
 import re
+import platform
+
+def getBaseDir():
+    """获取下载文件夹路径"""
+    if platform.system() == 'Windows':
+        return 'E:\\down\\'
+    else:
+        return '/home/heyefu/down/'
 
 def getHtmlByUrlAndPro(url, encode='gbk'):
     """使用代理访问, 需要安装pip install -U requests[sock]"""
@@ -8,11 +18,21 @@ def getHtmlByUrlAndPro(url, encode='gbk'):
     'https:': 'https://127.0.0.1:1080',
     'http:': 'http://127.0.0.1:1080'
     }
-    print(proxies)
-    print(url)
-    response = requests.get(url, proxies=proxies, timeout=5)
-    response.encoding = encode
+    headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
+    }
+    response = requests.get(url, proxies=proxies, headers=headers)
+    if encode is not None:
+        response.encoding = encode
     return response.text
+
+def getFileSeparate():
+    """获取文件夹分隔符"""
+    if platform.system() == 'Windows':
+        return '\\'
+    else:
+        return '/'
+
 
 
 def getHtmlByUrl(url, encode='gbk'):
@@ -35,13 +55,9 @@ def parse(content, regex):
     result = re.findall(regex, content, re.S)
     return result
 
-def makeDir(path):
-    if os.exists(path):
-        pass
-
 def saveFile(path, content, mold='wb'):
     """根据路径与写入方式写入文件"""
-    dir_save = path.rsplit('\\', 1)[0]
+    dir_save = path.rsplit(getFileSeparate(), 1)[0]
     if not os.path.exists(dir_save):
         os.makedirs(dir_save)
     with open(path, mold) as f:
