@@ -4,11 +4,18 @@ import requests
 import os
 import re
 import platform
+from sys import exit
+
+def isNull(result):
+    """判断是否为空，如果为空，则退出程序"""
+    if result == None or len(result) < 1:
+        print("result 为空")
+        sys.exit()
 
 def getBaseDir():
     """获取下载文件夹路径"""
     if platform.system() == 'Windows':
-        return 'E:\\down\\'
+        return 'F:\\down\\'
     else:
         return '/home/heyefu/down/'
 
@@ -33,8 +40,6 @@ def getFileSeparate():
     else:
         return '/'
 
-
-
 def getHtmlByUrl(url, encode='gbk'):
     """根据url获取html内容"""
     response = requests.get(url)
@@ -55,13 +60,18 @@ def parse(content, regex):
     result = re.findall(regex, content, re.S)
     return result
 
-def saveFile(path, content, mold='wb'):
+def saveFile(path, content, mold='wb', encoding='utf-8'):
     """根据路径与写入方式写入文件"""
     dir_save = path.rsplit(getFileSeparate(), 1)[0]
     if not os.path.exists(dir_save):
         os.makedirs(dir_save)
-    with open(path, mold) as f:
-        f.write(content)
+    if encoding == None:
+        with open(path, mold) as f:
+            f.write(content)
+    else:
+        with open(path, mold, encoding=encoding) as f:
+            f.write('\n\n')
+            f.write(content)
 
 
 if __name__ == '__main__':
