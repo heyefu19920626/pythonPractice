@@ -15,8 +15,8 @@ def getAuthor(html):
     author = re.findall(regex_author, html, re.S)
     return author[0]
 
-book_url = "https://www.booktxt.net/1_1894/"
-prefix = 'https://www.booktxt.net/1_1894/'
+book_url = "https://www.dhzw.org/book/13/13766/"
+prefix = 'https://www.dhzw.org/book/13/13766/'
 html = getHtmlByUrl(book_url)
 
 book_name_regex = '<h1>(.*?)</h1>'
@@ -27,22 +27,25 @@ print(book_name)
 
 book_txt = BASE_DIR + book_name + '.txt'
 book_catalog_txt = BASE_DIR + book_name + "_catalog.txt"
-deleteFile(book_txt)
-deleteFile(book_catalog_txt)
+# deleteFile(book_txt)
+# deleteFile(book_catalog_txt)
 
-catalog_all_regex = '正文</dt>(.*?)</dl>'
+catalog_all_regex = '<dl>(.*?)</dl>'
 result = parse(html, catalog_all_regex)
 isNull(result)
-catalogs_regex = '<dd><a href="(.*?)">(.*?)</a></dd>'
+catalogs_regex = '<dd><a href="(.*?)" .*?>(.*?)</a></dd>'
 result = parse(result[0], catalogs_regex)
 isNull(result)
 catalogs = result
 
+catalogs = catalogs[494:]
+# print(catalogs)
 for catalog in catalogs:
     print(catalog[1] + '...')
     catalog_url = prefix + catalog[0]
     html = getHtmlByUrl(catalog_url)
-    content_regex = '<div id="content">(.*?)</div>'
+    print(catalog_url)
+    content_regex = '<div id="BookText">(.*?)</div>'
     result = parse(html, content_regex)
     isNull(result)
     content = catalog[1] + '\n\n' + result[0]
