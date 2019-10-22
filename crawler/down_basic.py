@@ -4,7 +4,8 @@ import requests
 import os
 import re
 import platform
-from sys import exit
+import sys
+
 
 def isNull(result):
     """判断是否为空，如果为空，则退出程序"""
