@@ -2,6 +2,8 @@ import requests
 import json
 import re
 import os
+from down_basic import deleteFile as deleteFile
+from down_basic import saveFile as saveFile
 
 
 BASE_DIR = 'E:\\fiction\\'
@@ -35,10 +37,8 @@ def getChapter(catalog_div, name):
     """获取章节名称及地址 """
     regex_catalog = '<li><a href="(.*?)">(.*?)</a></li>'
     catalogs = re.findall(regex_catalog, catalog_div)
-    with open(name, 'a', encoding='utf-8') as f:
-        for catalog in catalogs:
-            f.write(catalog[1])
-            f.write('\n')
+    for catalog in catalogs:
+        saveFile(name, catalog[1], 'a')
     return catalogs
 
 def getNextPageUrl(html, presentUrl):
@@ -99,11 +99,6 @@ def getContent(pages, base, name, chapter):
             print('-----------抓取内容出错-----------')
     print('Over: ' + chapter)
 
-def deleteFile(path):
-    if os.path.exists(path):
-        os.remove(path)
-        print('delete: ' + path)
-
 def main(url):
     book_url =  url
     catalog_base_url = book_url
@@ -122,14 +117,21 @@ def main(url):
 
     pre_page, total_page = getPage(html)
 
+    start = 53
+    pre = 0
+
     while pre_page <= total_page:
         print("正在抓取第%d页" % page)
         html = getHtmlByUrl(book_url)
         chapter_ul = getChapterUl(html)
         chapters = getChapter(chapter_ul, catalog_file)
         for chapter in chapters:
+            if pre < start:
+                pre += 1
+                continue
             content_pages = getContentPage(prefix + chapter[0])
             getContent(content_pages, catalog_base_url, content_file, chapter[1])
+            pre += 1
         next_page = getNextPageUrl(html, book_url)
         print("抓取完成第%d页" % page)
         if next_page != "":
@@ -141,9 +143,8 @@ def main(url):
         pre_page += 1
 
     print('------------Over----------')
-
 if __name__ == '__main__':
-    main("https://www.diyibanzhu4.com/11/11441/")
+    main("http://www.diyibanzhu4.xyz/1/1874/")
     # book_url = "https://www.diyibanzhu4.com/1/1874/"
     # catalog_base_url = book_url
     # prefix = 'https://www.diyibanzhu4.com'

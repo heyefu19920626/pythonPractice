@@ -15,9 +15,9 @@ def isNull(result):
 def getBaseDir():
     """获取下载文件夹路径"""
     if platform.system() == 'Windows':
-        return 'F:\\down\\'
+        return 'E:\\fiction\\'
     else:
-        return '/home/heyefu/down/'
+        return '/home/heyefu/fiction/'
 
 def getHtmlByUrlAndPro(url, encode='gbk'):
     """使用代理访问, 需要安装pip install -U requests[sock]"""
