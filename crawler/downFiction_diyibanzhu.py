@@ -104,9 +104,6 @@ def getContent(pages, base, name, chapter):
             print('-----------抓取内容出错-----------')
     print('Over: ' + chapter)
 
-picDicts = json.loads('picDict.json')
-
-
 def replacePicToText(content):
     regex = '<img src="/toimg/data/(.*?)\\.png" />'
     result = parse(content, regex)
