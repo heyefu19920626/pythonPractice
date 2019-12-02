@@ -5,6 +5,11 @@ import os
 from down_basic import deleteFile as deleteFile
 from down_basic import saveFile as saveFile
 
+from down_basic import getHtmlByUrl as getHtmlByUrl
+from down_basic import getBaseDir as getBaseDir
+from down_basic import parse as parse
+from down_basic import isNull as isNull
+
 
 BASE_DIR = 'E:\\fiction\\'
 
@@ -99,6 +104,20 @@ def getContent(pages, base, name, chapter):
             print('-----------抓取内容出错-----------')
     print('Over: ' + chapter)
 
+picDicts = json.loads('picDict.json')
+
+
+def replacePicToText(content):
+    regex = '<img src="/toimg/data/(.*?)\\.png" />'
+    result = parse(content, regex)
+    for key in result:
+        if key in picDicts :
+            pass
+        else:
+            picDicts[key] = ''
+    print(result)
+
+
 def main(url):
     book_url =  url
     catalog_base_url = book_url
@@ -117,7 +136,7 @@ def main(url):
 
     pre_page, total_page = getPage(html)
 
-    start = 53
+    start = 153
     pre = 0
 
     while pre_page <= total_page:
@@ -144,7 +163,7 @@ def main(url):
 
     print('------------Over----------')
 if __name__ == '__main__':
-    main("http://www.diyibanzhu4.xyz/1/1874/")
+    main("http://www.diyibanzhu4.xyz/9/9936/")
     # book_url = "https://www.diyibanzhu4.com/1/1874/"
     # catalog_base_url = book_url
     # prefix = 'https://www.diyibanzhu4.com'
