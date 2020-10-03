@@ -1,11 +1,11 @@
-from down_basic import getBaseDir as getBaseDir
-from down_basic import getHtmlByUrl as getHtmlByUrl
-from down_basic import parse as parse
-from down_basic import isNull as isNull
-from down_basic import deleteFile as deleteFile
-from down_basic import saveFile as saveFile
+from crawler.down_basic import getBaseDir as getBaseDir
+from crawler.down_basic import getHtmlByUrl as getHtmlByUrl
+from crawler.down_basic import parse as parse
+from crawler.down_basic import isNull as isNull
+from crawler.down_basic import deleteFile as deleteFile
+from crawler.down_basic import saveFile as saveFile
 
-def formattContent(content):
+def format_content(content):
     content = content.replace('&nbsp;', '')
     content = content.replace('<br />', '')
     return content
@@ -55,7 +55,7 @@ for catalog in catalog_result:
     content_regex = '<p class="articlecontent" id="articlecontent">(.*?)</p>'
     content_result = parse(html, content_regex)
     isNull(content_result)
-    content = catalog[1] + '\n\n' + formattContent(content_result[0])
+    content = catalog[1] + '\n\n' + format_content(content_result[0])
     saveFile(text_file, content, 'a')
     saveFile(catalog_file, catalog[1], 'a')
 

@@ -1,4 +1,4 @@
-# -*- encding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 
 import requests
 import os
@@ -83,19 +83,18 @@ def saveFile(path, content, mold='wb', encoding='utf-8'):
             f.write(content)
 
 
-def coverPicToJson(content):
+def covert_pic_to_json(content):
     """将图片转化为json"""
-    regex = '<img src="/toimg/data/(.*?)\\.png" />'
+    regex = '<img src="(/toimg/data/(.*?)\\.png)" />'
     result = parse(content, regex)
     for key in result:
         if key in picDicts:
-            content = content.replace('<img src="/toimg/data/' +
-                                      key + '.png" />', picDicts[key])
+            content = content.replace('<img src="/toimg/data/' + key + '.png" />', picDicts[key])
             pass
         else:
             picDicts[key] = ''
     with open('picDicts.json', 'w', encoding='utf-8') as f:
-        json.dump(picDicts, f)
+        json.dump(picDicts, f, ensure_ascii=False)
     return content
 
 
@@ -106,7 +105,7 @@ if __name__ == '__main__':
         picDicts = json.load(f)
     with open('E:\\fiction\\txt\\2.txt', 'r', encoding='utf-8') as f:
         content = f.read()
-        content = coverPicToJson(content)
+        content = covert_pic_to_json(content)
     with open('E:\\fiction\\txt\\3.txt', 'w', encoding='utf-8') as f:
         f.write(content)
     pass
