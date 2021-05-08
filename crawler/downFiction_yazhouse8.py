@@ -1,9 +1,10 @@
-import requests
-import json
 import re
-from downFiction_diyibanzhu import getHtmlByUrl as getHtmlByUrl
-from downFiction_diyibanzhu import getName as getName
+
+import requests
+
 from downFiction_diyibanzhu import deleteFile as deleteFile
+from downFiction_diyibanzhu import get_html_by_url as getHtmlByUrl
+
 
 def getAuthor(html):
     regex_author = '<h1>.*?</h1>.*?<p>.*?：(.*?)</p>'

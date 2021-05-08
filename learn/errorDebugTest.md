@@ -82,9 +82,10 @@ pdb.set_trace()
     > python -m unittest **.py
 - setUp与tearDown
     - 可以在单元测试中编写两个特殊的setUp()和tearDown()方法。这两个方法会分别在每调用一个测试方法的前后分别被执行
+
 ```python
 import unittest
-from errorDebugTest import Dict
+from learn.errorDebugTest import Dict
 
 
 class TestDict(unittest.TestCase):

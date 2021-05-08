@@ -1,5 +1,5 @@
 import unittest
-from errorDebugTest import Dict
+from learn.errorDebugTest import Dict
 
 
 class TestDict(unittest.TestCase):

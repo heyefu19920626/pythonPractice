@@ -1,12 +1,11 @@
-import requests
-import json
 import re
 import time
-from down_basic import getHtmlByUrl as getHtmlByUrl
+
 from down_basic import deleteFile as deleteFile
 from down_basic import getBaseDir as getBaseDir
-from down_basic import parse as parse
+from down_basic import getHtmlByUrl as getHtmlByUrl
 from down_basic import isNull as isNull
+from down_basic import parse as parse
 from down_basic import saveFile as saveFile
 
 STATUS = 1
