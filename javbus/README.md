@@ -1,12 +1,19 @@
 # 对接JavBus
+
 <!-- TOC -->
 * [对接JavBus](#对接javbus)
+  * [使用方法](#使用方法)
   * [功能](#功能)
   * [配置](#配置)
   * [影片数据结构](#影片数据结构)
   * [解析规则](#解析规则)
 <!-- TOC -->
 
+## 使用方法
+
+1. 安装所需要的依赖库
+2. 从[ChromeDriver网站](https://chromedriver.chromium.org/downloads)下载与自己本地版本对应的chromedriver
+3. 将下载的chromedriver放到src目录下
 
 ## 功能
 
